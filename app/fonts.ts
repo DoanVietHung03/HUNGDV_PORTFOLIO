@@ -11,10 +11,12 @@ export const plex = IBM_Plex_Sans({
   weight: ['400', '500', '600'],
   variable: '--font-plex',
   display: 'swap',
+  preload: false,
 });
 export const plexMono = IBM_Plex_Mono({
   subsets: ['latin', 'latin-ext', 'vietnamese'],
   weight: ['400', '500'],
   variable: '--font-plex-mono',
   display: 'swap',
+  preload: false,
 });

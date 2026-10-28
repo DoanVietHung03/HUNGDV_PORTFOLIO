@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { RotateCcw } from 'lucide-react';
 import type { HeroText } from '@/content/types';
 import { fmt, num, type Lang } from '@/lib/i18n';
-import { halfExtents, inferno, makeSurface, type Surface } from './surface';
+import { halfExtents, inferno, makeSurface, surfaceSize, type Surface } from './surface';
 
 const SCAN_MS = 6500;
 const LINES = 1792;
@@ -46,7 +46,34 @@ export function ScopeCanvas({ t, lang }: { t: HeroText; lang: Lang }) {
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  const surface = useMemo(() => (seed === null ? null : makeSurface(seed, narrow)), [seed, narrow]);
+  const [surface, setSurface] = useState<Surface | null>(null);
+  // The steel texture takes a few hundred ms on slow phones, so it is computed in a
+  // worker; the page stays responsive. Falls back to an idle callback without workers.
+  const workerRef = useRef<Worker | null>(null);
+  useEffect(() => {
+    if (seed === null) return;
+    const { w, h } = surfaceSize(narrow);
+    let cancelled = false;
+    const done = (px?: Uint8ClampedArray) => !cancelled && setSurface(makeSurface(seed, narrow, px));
+    try {
+      workerRef.current ??= new Worker(new URL('./steel.worker.ts', import.meta.url));
+      const worker = workerRef.current;
+      worker.onmessage = (e: MessageEvent<{ seed: number; w: number; px: Uint8ClampedArray }>) => {
+        if (e.data.seed === seed && e.data.w === w) done(e.data.px);
+      };
+      worker.postMessage({ seed, w, h });
+    } catch {
+      const id = setTimeout(() => done(), 300);
+      return () => {
+        cancelled = true;
+        clearTimeout(id);
+      };
+    }
+    return () => {
+      cancelled = true;
+    };
+  }, [seed, narrow]);
+  useEffect(() => () => workerRef.current?.terminate(), []);
 
   const stats = useMemo(() => {
     if (!surface) return null;

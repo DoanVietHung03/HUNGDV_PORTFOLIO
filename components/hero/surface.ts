@@ -1,4 +1,5 @@
 import { range, rng } from '@/lib/rng';
+import { steelPixels } from './steel';
 
 export type Kind = 'stain' | 'scratch' | 'hole' | 'smudge' | 'dust';
 
@@ -21,35 +22,6 @@ export interface Surface {
   candidates: Candidate[];
 }
 
-/** Smooth value noise on a seeded lattice. */
-function makeNoise(r: () => number) {
-  const N = 256;
-  const perm = new Uint8Array(N * 2);
-  const vals = new Float32Array(N);
-  for (let i = 0; i < N; i++) {
-    perm[i] = i;
-    vals[i] = r();
-  }
-  for (let i = N - 1; i > 0; i--) {
-    const j = Math.floor(r() * (i + 1));
-    [perm[i], perm[j]] = [perm[j], perm[i]];
-  }
-  for (let i = 0; i < N; i++) perm[N + i] = perm[i];
-  const h = (x: number, y: number) => vals[perm[(perm[x & 255] + y) & 511]];
-  const s = (t: number) => t * t * (3 - 2 * t);
-  return (x: number, y: number) => {
-    const xi = Math.floor(x);
-    const yi = Math.floor(y);
-    const xf = s(x - xi);
-    const yf = s(y - yi);
-    const a = h(xi, yi);
-    const b = h(xi + 1, yi);
-    const c = h(xi, yi + 1);
-    const d = h(xi + 1, yi + 1);
-    return a + (b - a) * xf + (c - a) * yf + (a - b - c + d) * xf * yf;
-  };
-}
-
 const shuffle = <T,>(r: () => number, a: T[]) => {
   const b = a.slice();
   for (let i = b.length - 1; i > 0; i--) {
@@ -59,10 +31,12 @@ const shuffle = <T,>(r: () => number, a: T[]) => {
   return b;
 };
 
-export function makeSurface(seed: number, narrow: boolean): Surface {
+export const surfaceSize = (narrow: boolean) => ({ w: narrow ? 640 : 1440, h: 480 });
+
+/** pixels: the brushed-steel image from steelPixels(), usually computed in a worker */
+export function makeSurface(seed: number, narrow: boolean, pixels?: Uint8ClampedArray): Surface {
   const r = rng(seed);
-  const w = narrow ? 640 : 1440;
-  const h = narrow ? 480 : 480;
+  const { w, h } = surfaceSize(narrow);
 
   // Real defects score higher than benign marks, but the ranges overlap:
   // that overlap is what the threshold slider makes visible.
@@ -118,28 +92,8 @@ export function makeSurface(seed: number, narrow: boolean): Surface {
   texture.width = w;
   texture.height = h;
   const ctx = texture.getContext('2d')!;
-  const img = ctx.createImageData(w, h);
-  const n1 = makeNoise(r);
-  const n2 = makeNoise(r);
-  const row = new Float32Array(h);
-  for (let y = 0; y < h; y++) row[y] = n2(0.5, y / 2.2) - 0.5;
-  for (let y = 0; y < h; y++) {
-    for (let x = 0; x < w; x++) {
-      const v =
-        0.6 +
-        0.1 * (n1(x / 220, y / 90) - 0.5) +
-        0.05 * row[y] +
-        0.05 * (n2(x / 380, y / 1.6) - 0.5) +
-        0.035 * (r() - 0.5);
-      const vig = 1 - 0.12 * Math.pow(Math.abs(y / h - 0.5) * 2, 2);
-      const g = v * vig;
-      const i = (y * w + x) * 4;
-      img.data[i] = g * 196;
-      img.data[i + 1] = g * 205;
-      img.data[i + 2] = g * 214;
-      img.data[i + 3] = 255;
-    }
-  }
+  const data = pixels ?? steelPixels(seed, w, h);
+  const img = new ImageData(new Uint8ClampedArray(data), w, h);
   ctx.putImageData(img, 0, 0);
 
   for (const c of candidates) paintMark(ctx, c, r);

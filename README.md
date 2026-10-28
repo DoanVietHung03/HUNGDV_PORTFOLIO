@@ -9,7 +9,7 @@ npm run build          # static site in out/
 npm test               # Playwright tests against out/ (build first)
 npm run check:secrets  # scan out/ for IPs, keys, forbidden terms
 npm run og             # regenerate public/og.png
-./deploy/deploy.sh user@VPS_IP   # build, check, rsync out/ to /var/www/hungdv.io.vn
+./deploy/deploy.sh               # on the VPS itself: build, check, copy out/ to /var/www/hungdv.io.vn
 ```
 
 - Text: `content/vi.ts`, `content/en.ts` (same `Content` type, so a missing string fails the build).
