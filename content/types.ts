@@ -159,7 +159,7 @@ export interface Content {
   };
   experience: {
     title: string;
-    items: { company: string; role: string; period: string; points: string[] }[];
+    items: { company: string; roles: { title: string; period: string }[]; points: string[] }[];
   };
   research: { title: string; intro: string; questions: string[] };
   education: {
@@ -169,6 +169,7 @@ export interface Content {
     cv: string;
     cvOther: string;
     cvMissing: string;
+    languages: string;
     achievementsTitle: string;
     achievements: string[];
   };

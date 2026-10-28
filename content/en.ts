@@ -7,7 +7,7 @@ export const en: Content = {
       'Portfolio of Doan Viet Hung: line-scan surface defect inspection, OCR for Vietnamese administrative documents, camera-based distance and speed measurement, and workplace safety monitoring.',
   },
   name: 'Doan Viet Hung',
-  role: 'Computer vision engineer',
+  role: 'AI / Computer vision engineer',
   nav: {
     projects: 'Projects',
     areas: 'Areas',
@@ -223,6 +223,7 @@ export const en: Content = {
     reposTitle: 'A few public repositories',
     repos: [
       { name: 'Motion-Search-Demo', body: 'ROI-based motion event search in video with OpenCV, with an index and automated tests.' },
+      { name: 'Fraud-Prevention-in-Cashier', body: 'Realtime fraud detection at the point-of-sale counter, combining deep learning with a finite-state machine (FSM).' },
       { name: 'Semantic_Search_Test', body: 'Semantic image search, evaluated with Recall@20 for Vietnamese and English queries.' },
       { name: 'LPR_only_trad_ML', body: 'License plate recognition with classic image processing and HOG features, no deep learning.' },
     ],
@@ -232,12 +233,16 @@ export const en: Content = {
     items: [
       {
         company: 'HPT Vietnam Corporation',
-        role: 'Computer Vision Engineer',
-        period: '',
+        roles: [
+          { title: 'AI – Computer Vision Solution Engineer', period: 'Dec 2025 – present' },
+          { title: 'Intern', period: 'Jul 2025 – Nov 2025' },
+        ],
         points: [
-          "Contributed to the company's on-premise vision AI platform for security and operations: face recognition, face anti-spoofing, license plate recognition (ALPR) and PPE detection.",
-          'Co-author on the intellectual property certificate for this platform.',
-          'Worked with many enterprise clients, including major food and beverage brands.',
+          "Contributed to the company's vision AI platform for security and operations: face recognition, face anti-spoofing, license plate recognition (ALPR) and PPE detection. Co-author on the platform's intellectual property certificate.",
+          'Designed and deployed AI surveillance proof-of-concept systems on multi-stream RTSP (H.264) camera feeds, running on NVIDIA GPU edge devices.',
+          'Optimized realtime inference pipelines with ONNX Runtime and CUDA, reducing latency and keeping multi-stream processing stable under hardware constraints.',
+          'Containerized models and backend services with Docker for reproducible on-premise deployment at enterprise clients, including major food and beverage brands.',
+          'Worked directly with stakeholders to turn business requirements into system-level AI architectures, balancing accuracy and latency for each real-world use case.',
         ],
       },
     ],
@@ -254,13 +259,17 @@ export const en: Content = {
   },
   education: {
     title: 'Education',
-    degree: 'Bachelor of Science',
+    degree: 'Bachelor of Applied Science, Computer Vision · Oct 2021 – Oct 2025',
     school: 'University of Science, Vietnam National University Ho Chi Minh City',
     cv: 'Download CV (PDF)',
     cvOther: 'Vietnamese version',
     cvMissing: 'CV available on request.',
-    achievementsTitle: 'Achievements',
-    achievements: ['Co-author, intellectual property certificate for a vision AI platform for security and operations.'],
+    languages: 'Languages: Vietnamese (native), English (professional working proficiency).',
+    achievementsTitle: 'Achievements and certifications',
+    achievements: [
+      'Co-author, intellectual property certificate for a vision AI platform for security and operations.',
+      'Certificate: Getting Started with Deep Learning.',
+    ],
   },
   contact: {
     title: 'Contact',

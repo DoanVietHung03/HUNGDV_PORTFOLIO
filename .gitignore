@@ -7,3 +7,4 @@ playwright-report/
 next-env.d.ts
 .env*
 scripts/forbidden.txt
+docs/Profile.pdf

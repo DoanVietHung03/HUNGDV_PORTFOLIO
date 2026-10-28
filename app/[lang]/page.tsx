@@ -106,10 +106,14 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             {c.experience.items.map((e) => (
               <div key={e.company}>
                 <p className="text-xl font-display font-semibold tracking-tight">{e.company}</p>
-                <p className="text-ink-2">
-                  {e.role}
-                  {e.period && <span className="mono text-sm"> · {e.period}</span>}
-                </p>
+                <ul className="mt-1 space-y-0.5">
+                  {e.roles.map((r) => (
+                    <li key={r.title} className="text-ink-2">
+                      {r.title}
+                      {r.period && <span className="mono text-sm"> · {r.period}</span>}
+                    </li>
+                  ))}
+                </ul>
                 <ul className="mt-3 space-y-2 prose-w">
                   {e.points.map((pt) => (
                     <li key={pt} className="pl-4 relative before:absolute before:left-0 before:top-[0.7em] before:h-px before:w-2 before:bg-ink-2">
@@ -181,6 +185,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           <div className="lg:col-span-8">
             <p className="text-xl font-display font-semibold tracking-tight">{c.education.school}</p>
             <p className="text-ink-2">{c.education.degree}</p>
+            <p className="mt-2 text-sm text-ink-2">{c.education.languages}</p>
             {c.education.achievements.length > 0 && (
               <div className="mt-6">
                 <h3 className="text-lg">{c.education.achievementsTitle}</h3>

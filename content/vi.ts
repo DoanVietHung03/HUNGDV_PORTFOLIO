@@ -7,7 +7,7 @@ export const vi: Content = {
       'Portfolio của Đoàn Việt Hưng: kiểm tra lỗi bề mặt bằng camera line-scan, OCR văn bản hành chính tiếng Việt, đo khoảng cách và tốc độ từ camera, giám sát an toàn lao động.',
   },
   name: 'Đoàn Việt Hưng',
-  role: 'Kỹ sư thị giác máy tính',
+  role: 'Kỹ sư AI / Thị giác máy tính',
   nav: {
     projects: 'Dự án',
     areas: 'Lĩnh vực',
@@ -223,6 +223,7 @@ export const vi: Content = {
     reposTitle: 'Một vài repo công khai',
     repos: [
       { name: 'Motion-Search-Demo', body: 'Tìm sự kiện chuyển động trong video theo ROI bằng OpenCV, có chỉ mục và test tự động.' },
+      { name: 'Fraud-Prevention-in-Cashier', body: 'Phát hiện gian lận tại quầy thu ngân (POS) theo thời gian thực, kết hợp deep learning với máy trạng thái hữu hạn (FSM).' },
       { name: 'Semantic_Search_Test', body: 'Tìm kiếm ảnh theo ngữ nghĩa, đánh giá Recall@20 cho truy vấn tiếng Việt và tiếng Anh.' },
       { name: 'LPR_only_trad_ML', body: 'Nhận dạng biển số bằng xử lý ảnh và đặc trưng HOG, không dùng deep learning.' },
     ],
@@ -232,12 +233,16 @@ export const vi: Content = {
     items: [
       {
         company: 'HPT Vietnam Corporation',
-        role: 'Kỹ sư thị giác máy tính',
-        period: '',
+        roles: [
+          { title: 'AI – Computer Vision Solution Engineer', period: '12/2025 – nay' },
+          { title: 'Thực tập sinh', period: '07/2025 – 11/2025' },
+        ],
         points: [
-          'Đóng góp vào nền tảng thị giác AI cho an ninh và vận hành của công ty, triển khai on-premise: nhận diện khuôn mặt, chống giả mạo khuôn mặt, nhận dạng biển số (ALPR) và nhận diện đồ bảo hộ lao động (PPE).',
-          'Đồng tác giả trong chứng nhận sở hữu trí tuệ của nền tảng này.',
-          'Làm việc với nhiều khách hàng doanh nghiệp, trong đó có các thương hiệu lớn ngành thực phẩm và đồ uống.',
+          'Đóng góp vào nền tảng thị giác AI cho an ninh và vận hành của công ty: nhận diện khuôn mặt, chống giả mạo khuôn mặt, nhận dạng biển số (ALPR) và nhận diện đồ bảo hộ lao động (PPE). Đồng tác giả trong chứng nhận sở hữu trí tuệ của nền tảng này.',
+          'Thiết kế và triển khai các hệ thống giám sát AI dạng POC trên nhiều luồng camera RTSP (H.264), chạy trên thiết bị biên có GPU NVIDIA.',
+          'Tối ưu pipeline suy luận realtime bằng ONNX Runtime và CUDA để giảm độ trễ và giữ ổn định khi xử lý nhiều luồng trên phần cứng giới hạn.',
+          'Đóng gói model và dịch vụ backend bằng Docker để triển khai on-premise lặp lại được cho khách hàng doanh nghiệp, trong đó có các thương hiệu lớn ngành thực phẩm và đồ uống.',
+          'Làm việc trực tiếp với các bên liên quan để chuyển yêu cầu nghiệp vụ thành kiến trúc hệ thống AI, cân bằng độ chính xác và độ trễ cho từng bài toán thực tế.',
         ],
       },
     ],
@@ -254,13 +259,17 @@ export const vi: Content = {
   },
   education: {
     title: 'Học vấn',
-    degree: 'Cử nhân',
+    degree: 'Cử nhân Khoa học Ứng dụng, ngành Thị giác máy tính · 10/2021 – 10/2025',
     school: 'Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM',
     cv: 'Tải CV (PDF)',
     cvOther: 'Bản tiếng Anh',
     cvMissing: 'CV gửi theo yêu cầu.',
-    achievementsTitle: 'Thành tích',
-    achievements: ['Đồng tác giả, chứng nhận sở hữu trí tuệ cho một nền tảng thị giác AI phục vụ an ninh và vận hành.'],
+    languages: 'Ngôn ngữ: tiếng Việt (bản ngữ), tiếng Anh (làm việc chuyên nghiệp).',
+    achievementsTitle: 'Thành tích và chứng chỉ',
+    achievements: [
+      'Đồng tác giả, chứng nhận sở hữu trí tuệ cho một nền tảng thị giác AI phục vụ an ninh và vận hành.',
+      'Chứng chỉ Getting Started with Deep Learning.',
+    ],
   },
   contact: {
     title: 'Liên hệ',
