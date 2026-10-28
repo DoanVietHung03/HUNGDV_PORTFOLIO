@@ -227,6 +227,21 @@ export const vi: Content = {
       { name: 'LPR_only_trad_ML', body: 'Nhận dạng biển số bằng xử lý ảnh và đặc trưng HOG, không dùng deep learning.' },
     ],
   },
+  experience: {
+    title: 'Kinh nghiệm',
+    items: [
+      {
+        company: 'HPT Vietnam Corporation',
+        role: 'Kỹ sư thị giác máy tính',
+        period: '',
+        points: [
+          'Đóng góp vào nền tảng thị giác AI cho an ninh và vận hành của công ty, triển khai on-premise: nhận diện khuôn mặt, chống giả mạo khuôn mặt, nhận dạng biển số (ALPR) và nhận diện đồ bảo hộ lao động (PPE).',
+          'Đồng tác giả trong chứng nhận sở hữu trí tuệ của nền tảng này.',
+          'Làm việc với nhiều khách hàng doanh nghiệp, trong đó có các thương hiệu lớn ngành thực phẩm và đồ uống.',
+        ],
+      },
+    ],
+  },
   research: {
     title: 'Mối quan tâm nghiên cứu',
     intro: 'Những câu hỏi mình gặp khi triển khai và muốn đào sâu hơn:',
@@ -244,13 +259,15 @@ export const vi: Content = {
     cv: 'Tải CV (PDF)',
     cvOther: 'Bản tiếng Anh',
     cvMissing: 'CV gửi theo yêu cầu.',
+    achievementsTitle: 'Thành tích',
+    achievements: ['Đồng tác giả, chứng nhận sở hữu trí tuệ cho một nền tảng thị giác AI phục vụ an ninh và vận hành.'],
   },
   contact: {
     title: 'Liên hệ',
     body: 'Nếu bạn đang tìm người làm thị giác máy tính từ thí nghiệm đến triển khai, hoặc muốn trao đổi về các hướng nghiên cứu ở trên, hãy liên hệ với mình.',
-    github: 'GitHub',
-    email: 'Email',
-    linkedin: 'LinkedIn',
+    github: 'https://github.com/DoanVietHung03',
+    email: 'hungdoan29102003@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/h%C6%B0ng-%C4%91o%C3%A0n-a636502ba/',
   },
   footer: {
     privacy:

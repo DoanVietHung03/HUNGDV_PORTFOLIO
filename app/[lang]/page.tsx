@@ -36,6 +36,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
     url: `${site.url}/${lang}/`,
     sameAs: [site.github, site.linkedin].filter(Boolean),
     alumniOf: { '@type': 'CollegeOrUniversity', name: c.education.school },
+    worksFor: { '@type': 'Organization', name: c.experience.items[0].company },
     knowsAbout: ['Computer vision', 'Anomaly detection', 'OCR', 'Face recognition', 'License plate recognition'],
   };
 
@@ -94,6 +95,31 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               lab={labs[p.id]}
             />
           ))}
+        </section>
+
+        {/* ---- experience ---- */}
+        <section id="experience" data-anchor aria-labelledby="exp-title" className="mt-20 border-t-[3px] border-ink pt-8 grid gap-6 lg:grid-cols-12">
+          <h2 id="exp-title" className="text-3xl lg:col-span-4">
+            {c.experience.title}
+          </h2>
+          <div className="lg:col-span-8 space-y-8">
+            {c.experience.items.map((e) => (
+              <div key={e.company}>
+                <p className="text-xl font-display font-semibold tracking-tight">{e.company}</p>
+                <p className="text-ink-2">
+                  {e.role}
+                  {e.period && <span className="mono text-sm"> · {e.period}</span>}
+                </p>
+                <ul className="mt-3 space-y-2 prose-w">
+                  {e.points.map((pt) => (
+                    <li key={pt} className="pl-4 relative before:absolute before:left-0 before:top-[0.7em] before:h-px before:w-2 before:bg-ink-2">
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* ---- areas + research ---- */}
@@ -155,6 +181,18 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           <div className="lg:col-span-8">
             <p className="text-xl font-display font-semibold tracking-tight">{c.education.school}</p>
             <p className="text-ink-2">{c.education.degree}</p>
+            {c.education.achievements.length > 0 && (
+              <div className="mt-6">
+                <h3 className="text-lg">{c.education.achievementsTitle}</h3>
+                <ul className="mt-2 space-y-1.5">
+                  {c.education.achievements.map((a) => (
+                    <li key={a} className="pl-4 relative before:absolute before:left-0 before:top-[0.7em] before:h-px before:w-2 before:bg-ink-2">
+                      {a}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <div className="mt-5 flex flex-wrap items-center gap-3">
               {cvMain ? (
                 <>

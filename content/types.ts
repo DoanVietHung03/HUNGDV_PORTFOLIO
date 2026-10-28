@@ -157,6 +157,10 @@ export interface Content {
     reposTitle: string;
     repos: { name: string; body: string }[];
   };
+  experience: {
+    title: string;
+    items: { company: string; role: string; period: string; points: string[] }[];
+  };
   research: { title: string; intro: string; questions: string[] };
   education: {
     title: string;
@@ -165,6 +169,8 @@ export interface Content {
     cv: string;
     cvOther: string;
     cvMissing: string;
+    achievementsTitle: string;
+    achievements: string[];
   };
   contact: { title: string; body: string; github: string; email: string; linkedin: string };
   footer: { privacy: string; synthetic: string; source: string };

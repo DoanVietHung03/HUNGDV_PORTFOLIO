@@ -227,6 +227,21 @@ export const en: Content = {
       { name: 'LPR_only_trad_ML', body: 'License plate recognition with classic image processing and HOG features, no deep learning.' },
     ],
   },
+  experience: {
+    title: 'Experience',
+    items: [
+      {
+        company: 'HPT Vietnam Corporation',
+        role: 'Computer Vision Engineer',
+        period: '',
+        points: [
+          "Contributed to the company's on-premise vision AI platform for security and operations: face recognition, face anti-spoofing, license plate recognition (ALPR) and PPE detection.",
+          'Co-author on the intellectual property certificate for this platform.',
+          'Worked with many enterprise clients, including major food and beverage brands.',
+        ],
+      },
+    ],
+  },
   research: {
     title: 'Research interests',
     intro: 'Questions I ran into while deploying systems and want to study further:',
@@ -244,13 +259,15 @@ export const en: Content = {
     cv: 'Download CV (PDF)',
     cvOther: 'Vietnamese version',
     cvMissing: 'CV available on request.',
+    achievementsTitle: 'Achievements',
+    achievements: ['Co-author, intellectual property certificate for a vision AI platform for security and operations.'],
   },
   contact: {
     title: 'Contact',
     body: 'If you need someone who takes computer vision from experiment to deployment, or want to talk about the research questions above, get in touch.',
-    github: 'GitHub',
-    email: 'Email',
-    linkedin: 'LinkedIn',
+    github: 'https://github.com/DoanVietHung03',
+    email: 'hungdoan29102003@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/h%C6%B0ng-%C4%91o%C3%A0n-a636502ba/',
   },
   footer: {
     privacy:
