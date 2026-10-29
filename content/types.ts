@@ -12,6 +12,8 @@ export interface Metric {
 
 export interface ProjectText {
   title: string;
+  /** Overview card: short name, one headline figure, one line. */
+  glance: { name: string; stat: string; line: string };
   lede: string;
   problem: string;
   approach: string[];
@@ -109,6 +111,7 @@ export interface Content {
     otherLang: string;
   };
   hero: HeroText;
+  glanceTitle: string;
   projectsTitle: string;
   labels: {
     problem: string;

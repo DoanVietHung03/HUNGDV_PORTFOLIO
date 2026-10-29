@@ -23,7 +23,8 @@ export const vi: Content = {
     title: 'Mình xây hệ thống thị giác máy tính chạy được ngoài đời thật.',
     sub: 'Kỹ sư thị giác máy tính tại Việt Nam. Phát hiện lỗi công nghiệp, nhận dạng khuôn mặt và biển số, đọc tài liệu, đo đạc bằng camera.',
   },
-  projectsTitle: 'Dự án',
+  glanceTitle: 'Dự án tiêu biểu',
+  projectsTitle: 'Chi tiết dự án',
   labels: {
     problem: 'Bài toán',
     approach: 'Cách làm',
@@ -42,6 +43,7 @@ export const vi: Content = {
   projects: {
     linescan: {
       title: 'Kiểm tra lỗi bề mặt bằng camera line-scan',
+      glance: { name: 'Kiểm tra lỗi bề mặt', stat: 'Recall 92,3%', line: 'Học từ 10 ảnh đạt chuẩn; báo nhầm 2,8%, 43 ms mỗi ảnh.' },
       lede: 'Hệ thống phát hiện bất thường chỉ cần học từ ảnh đạt chuẩn, không cần ảnh lỗi. Mỗi ảnh trả về OK hoặc NOK, bản đồ bất thường, mask và khung quanh vùng nghi lỗi.',
       problem:
         'Lỗi quá hiếm và đa dạng để gom ảnh huấn luyện, trong khi dây chuyền cần quyết định cho mỗi ảnh trong khoảng 50 ms.',
@@ -75,6 +77,7 @@ export const vi: Content = {
     },
     ocr: {
       title: 'IntelliDoc OCR: số hóa văn bản hành chính tiếng Việt',
+      glance: { name: 'IntelliDoc OCR', stat: '237 trang · 0 lỗi', line: 'Từ PDF đến từng trường đã rà soát, có truy vết, cho văn bản hành chính.' },
       lede: 'Hệ thống nhận PDF, trích xuất nội dung bằng OCR, để người rà soát sửa và phê duyệt từng trường, rồi lưu bằng chứng để kiểm tra lại về sau.',
       problem:
         'Tài liệu có nhiều bố cục khác nhau, và khi OCR sai thì người sửa phải để lại dấu vết truy được.',
@@ -98,6 +101,7 @@ export const vi: Content = {
     },
     measure: {
       title: 'Vision Measurement Toolkit: đo khoảng cách và tốc độ từ camera',
+      glance: { name: 'Vision Measurement Toolkit', stat: '49 FPS · MAPE 13,3%', line: 'Đo khoảng cách và tốc độ xe từ một camera. Mã nguồn mở.' },
       lede: 'Bộ công cụ gộp hiệu chuẩn camera, đo khoảng cách trên mặt phẳng, đo 3D bằng ước lượng độ sâu từ một camera và đo tốc độ xe theo làn.',
       problem:
         'Muốn ra mét từ ảnh 2D thì phải biết một pixel ứng với bao nhiêu mét, và con số đó thay đổi theo khoảng cách tới camera.',
@@ -117,6 +121,7 @@ export const vi: Content = {
     },
     safety: {
       title: 'Giám sát an toàn lao động bằng pipeline nhiều tầng',
+      glance: { name: 'Giám sát an toàn lao động', stat: 'Pipeline 6 tầng', line: 'Người, mũ, áo, khẩu trang, găng tay và dùng điện thoại trên video trực tiếp.' },
       lede: 'Pipeline sáu tầng phát hiện và theo dõi người, kiểm tra mũ, áo phản quang, khẩu trang, găng tay và các hành vi như dùng điện thoại trên luồng video realtime.',
       problem:
         'Mũ và áo thấy được trên toàn khung hình, nhưng khẩu trang và găng tay cần ảnh cắt vùng mặt, vùng tay; chạy mọi model trên cả khung hình thì vừa chậm vừa nhiễu.',

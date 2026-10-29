@@ -100,3 +100,12 @@ test('hero links and folded approach details', async ({ page }) => {
   await more.locator('summary').click();
   await expect(more.getByText(/blocks\.4/)).toBeVisible();
 });
+
+test('overview cards jump to each project', async ({ page }) => {
+  await page.goto('/en/');
+  const cards = page.locator('#projects a');
+  await expect(cards).toHaveCount(4);
+  await cards.filter({ hasText: 'IntelliDoc OCR' }).click();
+  await expect(page).toHaveURL(/#intellidoc-ocr$/);
+  await expect(page.locator('#intellidoc-ocr-title')).toBeInViewport();
+});

@@ -23,7 +23,8 @@ export const en: Content = {
     title: 'I build computer vision systems that work outside the lab.',
     sub: 'Computer vision engineer based in Vietnam. Industrial defect detection, face and license plate recognition, document OCR, and camera-based measurement.',
   },
-  projectsTitle: 'Projects',
+  glanceTitle: 'Selected work',
+  projectsTitle: 'Project details',
   labels: {
     problem: 'Problem',
     approach: 'Approach',
@@ -42,6 +43,7 @@ export const en: Content = {
   projects: {
     linescan: {
       title: 'Surface defect inspection with a line-scan camera',
+      glance: { name: 'Surface defect inspection', stat: '92.3% recall', line: 'Learns from 10 good images; 2.8% false alarms at 43 ms per image.' },
       lede: 'The anomaly detector learns only from good samples and needs no defect images. Each image returns OK or NOK, an anomaly map, a mask and boxes around suspect regions.',
       problem:
         'Defects are too rare and varied to collect for training, and the line needs a decision for every image within about 50 ms.',
@@ -75,6 +77,7 @@ export const en: Content = {
     },
     ocr: {
       title: 'IntelliDoc OCR: digitizing Vietnamese administrative documents',
+      glance: { name: 'IntelliDoc OCR', stat: '237 pages · 0 failed', line: 'From PDF to reviewed, auditable fields for Vietnamese administrative records.' },
       lede: 'The system takes PDFs, extracts content with OCR, lets a reviewer correct and approve each field, and keeps evidence so results can be audited later.',
       problem:
         'Documents come in many layouts, and when OCR is wrong a person must fix it in a way that stays traceable.',
@@ -98,6 +101,7 @@ export const en: Content = {
     },
     measure: {
       title: 'Vision Measurement Toolkit: distance and speed from a camera',
+      glance: { name: 'Vision Measurement Toolkit', stat: '49 FPS · 13.3% MAPE', line: 'Distance and vehicle speed from a single camera. Open source.' },
       lede: 'A toolkit combining camera calibration, planar distance, 3D measurement from single-camera depth estimation, and lane-based vehicle speed.',
       problem:
         'Getting metres out of a 2D image means knowing how many metres one pixel covers, and that number changes with distance from the camera.',
@@ -117,6 +121,7 @@ export const en: Content = {
     },
     safety: {
       title: 'Workplace safety monitoring with a multi-stage pipeline',
+      glance: { name: 'Workplace safety monitoring', stat: '6-stage pipeline', line: 'People, helmets, vests, masks, gloves and phone use on live video.' },
       lede: 'A six-stage pipeline detects and tracks people, then checks helmets, vests, face masks, gloves and behaviours such as phone use on a realtime video stream.',
       problem:
         'Helmets and vests show in the full frame, but masks and gloves need face and hand crops; running every model on the full frame is slow and noisy.',

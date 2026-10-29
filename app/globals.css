@@ -204,3 +204,20 @@ a { color: inherit; }
   to { opacity: 1; transform: none; }
 }
 .lightup { animation: lightup 0.45s ease-out both; }
+
+/* Dark band: re-scopes the dark tokens so every utility inside renders dark. */
+.band {
+  --bg: #0c141c;
+  --surface: #131e29;
+  --ink: #e6ecf1;
+  --ink-2: #8c9caa;
+  --line: #263442;
+  --accent: #7c93ff;
+  background: var(--bg);
+  color: var(--ink);
+}
+/* in dark mode the page is already dark, so lift the band one step */
+:root[data-theme='dark'] .band { --bg: #131e29; --surface: #1a2734; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .band { --bg: #131e29; --surface: #1a2734; }
+}

@@ -1,14 +1,16 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { ArrowUpRight, Download, Mail } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Download, Mail } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/BrandIcons';
 import { getContent, isLang, type Lang } from '@/lib/i18n';
 import { site } from '@/content/site';
 import { projects } from '@/content/projects';
 import { HeaderControls } from '@/components/HeaderControls';
-import { Ruler } from '@/components/Ruler';
+import { ScrollProgress } from '@/components/ScrollProgress';
 import { ProjectSection } from '@/components/ProjectSection';
 import { BevLab, FlowLab, SafetyLab, TileLab } from '@/components/labs';
+
+const wrap = 'mx-auto max-w-[1180px] px-4 sm:px-6';
 
 const cvExists = (file: string) => fs.existsSync(path.join(process.cwd(), 'public', 'cv', file));
 
@@ -47,7 +49,6 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
       >
         {c.nav.skip}
       </a>
-      <Ruler />
 
       <header className="sticky top-0 z-40 border-b border-line bg-[color-mix(in_srgb,var(--bg)_88%,transparent)] backdrop-blur">
         <div className="mx-auto flex h-14 max-w-[1180px] items-center justify-between gap-4 px-4 sm:px-6">
@@ -57,18 +58,19 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             hungdv
           </a>
           <nav aria-label="Main" className="hidden sm:flex items-center gap-6 text-sm">
-            <a href="#experience" className="text-ink-2 hover:text-ink">{c.nav.experience}</a>
             <a href="#projects" className="text-ink-2 hover:text-ink">{c.nav.projects}</a>
+            <a href="#experience" className="text-ink-2 hover:text-ink">{c.nav.experience}</a>
             <a href="#areas" className="text-ink-2 hover:text-ink">{c.nav.areas}</a>
             <a href="#contact" className="text-ink-2 hover:text-ink">{c.nav.contact}</a>
           </nav>
           <HeaderControls lang={lang} labels={{ toLight: c.nav.toLight, toDark: c.nav.toDark, otherLang: c.nav.otherLang }} />
         </div>
+        <ScrollProgress />
       </header>
 
-      <main id="main" className="mx-auto max-w-[1180px] px-4 sm:px-6">
+      <main id="main">
         {/* ---- hero ---- */}
-        <section id="top" data-anchor aria-labelledby="hero-title" className="pt-10 sm:pt-14 pb-10">
+        <section id="top" data-anchor aria-labelledby="hero-title" className={`${wrap} pt-10 sm:pt-14 pb-14`}>
           <p className="text-sm text-ink-2">
             {c.name} · {c.role}
           </p>
@@ -105,8 +107,35 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           </ul>
         </section>
 
+        {/* ---- project overview (dark band) ---- */}
+        <section id="projects" data-anchor aria-labelledby="glance-title" className="band py-12 sm:py-16">
+          <div className={wrap}>
+            <h2 id="glance-title" className="text-3xl sm:text-4xl">
+              {c.glanceTitle}
+            </h2>
+            <ul className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              {projects.map((p) => {
+                const g = c.projects[p.id].glance;
+                return (
+                  <li key={p.id}>
+                    <a href={`#${p.anchor}`} className="group flex h-full flex-col rounded-[4px] border border-line bg-surface p-5 hover:border-accent">
+                      <span className="flex items-start justify-between gap-2 font-display text-lg font-semibold tracking-tight">
+                        {g.name}
+                        <ArrowDown size={16} aria-hidden className="mt-1 shrink-0 text-ink-2 transition-transform group-hover:translate-y-0.5 group-hover:text-accent" />
+                      </span>
+                      {(p.id !== 'linescan' || site.showLineScanMetrics) && <span className="mono mt-4 text-xl xl:text-lg text-accent">{g.stat}</span>}
+                      <span className="mt-2 text-[15px] text-ink-2">{g.line}</span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </section>
+
+        <div className={wrap}>
         {/* ---- experience ---- */}
-        <section id="experience" data-anchor aria-labelledby="exp-title" className="mt-10 border-t-[3px] border-ink pt-8 grid gap-6 lg:grid-cols-12">
+        <section id="experience" data-anchor aria-labelledby="exp-title" className="pt-16 grid gap-6 lg:grid-cols-12">
           <h2 id="exp-title" className="text-3xl lg:col-span-4">
             {c.experience.title}
           </h2>
@@ -135,7 +164,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         </section>
 
         {/* ---- projects ---- */}
-        <section id="projects" aria-labelledby="projects-title" className="pt-20">
+        <section id="project-details" aria-labelledby="projects-title" className="pt-20">
           <h2 id="projects-title" className="text-4xl sm:text-5xl">
             {c.projectsTitle}
           </h2>
@@ -271,10 +300,11 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             </ul>
           </div>
         </section>
+        </div>
       </main>
 
       <footer className="border-t border-line">
-        <div className="mx-auto max-w-[1180px] px-4 sm:px-6 py-8 grid gap-2 text-xs text-ink-2 sm:grid-cols-[1fr_auto]">
+        <div className={`${wrap} py-8 grid gap-2 text-xs text-ink-2 sm:grid-cols-[1fr_auto]`}>
           <div className="space-y-1 max-w-[80ch]">
             <p>{c.footer.privacy}</p>
             <p>{c.footer.synthetic}</p>
