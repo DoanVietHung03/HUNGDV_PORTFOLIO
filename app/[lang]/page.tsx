@@ -59,6 +59,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             hungdv
           </a>
           <nav aria-label="Main" className="hidden sm:flex items-center gap-6 text-sm">
+            <a href="#experience" className="text-ink-2 hover:text-ink">{c.nav.experience}</a>
             <a href="#projects" className="text-ink-2 hover:text-ink">{c.nav.projects}</a>
             <a href="#areas" className="text-ink-2 hover:text-ink">{c.nav.areas}</a>
             <a href="#contact" className="text-ink-2 hover:text-ink">{c.nav.contact}</a>
@@ -77,28 +78,38 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             {c.hero.title}
           </h1>
           <p className="mt-5 max-w-[62ch] text-lg text-ink-2">{c.hero.sub}</p>
+          <ul aria-label={c.contact.title} className="mt-6 flex flex-wrap gap-3">
+            {cvMain && (
+              <li>
+                <a
+                  href={`/cv/${cvMain}`}
+                  download
+                  className="inline-flex items-center gap-2 rounded-[4px] bg-accent px-4 py-2.5 text-sm font-medium text-white dark:text-[#0c141c]"
+                >
+                  <Download size={16} aria-hidden />
+                  {c.education.cv}
+                </a>
+              </li>
+            )}
+            <li>
+              <ContactLink href={site.github} icon={<GithubIcon />} label="GitHub" />
+            </li>
+            {site.linkedin && (
+              <li>
+                <ContactLink href={site.linkedin} icon={<LinkedinIcon />} label="LinkedIn" />
+              </li>
+            )}
+            {site.email && (
+              <li>
+                <ContactLink href={`mailto:${site.email}`} icon={<Mail size={16} aria-hidden />} label="Email" />
+              </li>
+            )}
+          </ul>
           <ScopeCanvas t={c.hero} lang={lang} />
         </section>
 
-        {/* ---- projects ---- */}
-        <section id="projects" aria-labelledby="projects-title" className="pt-10">
-          <h2 id="projects-title" className="text-4xl sm:text-5xl">
-            {c.projectsTitle}
-          </h2>
-          {projects.map((p) => (
-            <ProjectSection
-              key={p.id}
-              meta={p}
-              text={c.projects[p.id]}
-              labels={c.labels}
-              showMetrics={p.id !== 'linescan' || site.showLineScanMetrics}
-              lab={labs[p.id]}
-            />
-          ))}
-        </section>
-
         {/* ---- experience ---- */}
-        <section id="experience" data-anchor aria-labelledby="exp-title" className="mt-20 border-t-[3px] border-ink pt-8 grid gap-6 lg:grid-cols-12">
+        <section id="experience" data-anchor aria-labelledby="exp-title" className="mt-10 border-t-[3px] border-ink pt-8 grid gap-6 lg:grid-cols-12">
           <h2 id="exp-title" className="text-3xl lg:col-span-4">
             {c.experience.title}
           </h2>
@@ -124,6 +135,23 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               </div>
             ))}
           </div>
+        </section>
+
+        {/* ---- projects ---- */}
+        <section id="projects" aria-labelledby="projects-title" className="pt-20">
+          <h2 id="projects-title" className="text-4xl sm:text-5xl">
+            {c.projectsTitle}
+          </h2>
+          {projects.map((p) => (
+            <ProjectSection
+              key={p.id}
+              meta={p}
+              text={c.projects[p.id]}
+              labels={c.labels}
+              showMetrics={p.id !== 'linescan' || site.showLineScanMetrics}
+              lab={labs[p.id]}
+            />
+          ))}
         </section>
 
         {/* ---- areas + research ---- */}

@@ -42,18 +42,6 @@ export function ProjectSection({
 
       <div className="mt-10 grid gap-x-12 gap-y-10 min-[960px]:grid-cols-12">
         <div className="min-[960px]:col-span-5 space-y-8">
-          <Block title={labels.problem}>
-            <p>{text.problem}</p>
-          </Block>
-          <Block title={labels.approach}>
-            <ul className="space-y-2.5">
-              {text.approach.map((a) => (
-                <li key={a} className="pl-4 relative before:absolute before:left-0 before:top-[0.7em] before:h-px before:w-2 before:bg-ink-2">
-                  {a}
-                </li>
-              ))}
-            </ul>
-          </Block>
           <Block title={labels.results}>
             {text.results.map((r) => (
               <p key={r} className="mb-2">
@@ -76,6 +64,21 @@ export function ProjectSection({
                 <span className="font-medium">{labels.status}: </span>
                 {text.status}
               </p>
+            )}
+          </Block>
+          <Block title={labels.problem}>
+            <p>{text.problem}</p>
+          </Block>
+          <Block title={labels.approach}>
+            <Bullets items={text.approach.slice(0, 2)} />
+            {text.approach.length > 2 && (
+              <details className="group mt-3">
+                <summary className="cursor-pointer list-none inline-flex items-center gap-2 text-sm text-accent">
+                  {labels.moreApproach}
+                  <span aria-hidden className="mono group-open:rotate-45 transition-transform">+</span>
+                </summary>
+                <Bullets items={text.approach.slice(2)} className="mt-3" />
+              </details>
             )}
           </Block>
           {text.lessons && (
@@ -128,5 +131,17 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
       <h4 className="font-display text-lg font-semibold tracking-tight mb-2">{title}</h4>
       <div className="prose-w">{children}</div>
     </section>
+  );
+}
+
+function Bullets({ items, className = '' }: { items: string[]; className?: string }) {
+  return (
+    <ul className={`space-y-2.5 ${className}`}>
+      {items.map((a) => (
+        <li key={a} className="pl-4 relative before:absolute before:left-0 before:top-[0.7em] before:h-px before:w-2 before:bg-ink-2">
+          {a}
+        </li>
+      ))}
+    </ul>
   );
 }

@@ -112,6 +112,7 @@ export interface Content {
   name: string;
   role: string;
   nav: {
+    experience: string;
     projects: string;
     areas: string;
     contact: string;
@@ -126,6 +127,7 @@ export interface Content {
   labels: {
     problem: string;
     approach: string;
+    moreApproach: string;
     results: string;
     lessons: string;
     stack: string;

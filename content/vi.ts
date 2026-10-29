@@ -4,11 +4,12 @@ export const vi: Content = {
   meta: {
     title: 'Đoàn Việt Hưng · Kỹ sư thị giác máy tính',
     description:
-      'Portfolio của Đoàn Việt Hưng: kiểm tra lỗi bề mặt bằng camera line-scan, OCR văn bản hành chính tiếng Việt, đo khoảng cách và tốc độ từ camera, giám sát an toàn lao động.',
+      'Portfolio của Đoàn Việt Hưng, kỹ sư thị giác máy tính: nhận diện khuôn mặt, nhận dạng biển số, kiểm tra lỗi bề mặt bằng camera line-scan, OCR văn bản hành chính tiếng Việt, đo đạc bằng camera và giám sát an toàn lao động.',
   },
   name: 'Đoàn Việt Hưng',
   role: 'Kỹ sư AI / Thị giác máy tính',
   nav: {
+    experience: 'Kinh nghiệm',
     projects: 'Dự án',
     areas: 'Lĩnh vực',
     contact: 'Liên hệ',
@@ -41,6 +42,7 @@ export const vi: Content = {
   labels: {
     problem: 'Bài toán',
     approach: 'Cách làm',
+    moreApproach: 'Chi tiết triển khai',
     results: 'Kết quả',
     lessons: 'Bài học triển khai',
     stack: 'Công nghệ',
@@ -57,11 +59,12 @@ export const vi: Content = {
       title: 'Kiểm tra lỗi bề mặt bằng camera line-scan',
       lede: 'Hệ thống phát hiện bất thường chỉ cần học từ ảnh đạt chuẩn, không cần ảnh lỗi. Mỗi ảnh trả về OK hoặc NOK, bản đồ bất thường, mask và khung quanh vùng nghi lỗi.',
       problem:
-        'Lỗi bề mặt hiếm và muôn hình muôn vẻ, khó gom đủ ảnh lỗi để huấn luyện. Dây chuyền cần quyết định cho mỗi ảnh trong khoảng 50 ms.',
+        'Lỗi quá hiếm và đa dạng để gom ảnh huấn luyện, trong khi dây chuyền cần quyết định cho mỗi ảnh trong khoảng 50 ms.',
       approach: [
-        'PatchCore với MobileNetV3-Large, lấy đặc trưng ở blocks.4 và blocks.6, chạy FP16.',
-        'Ảnh cố định 1024 × 1792 được cắt thành tile 448 px, chồng lấn 0,20. Mỗi tile tìm láng giềng gần nhất trong memory bank xây từ 10 ảnh đạt chuẩn (coreset 0,10).',
-        'Điểm các tile được ghép bằng cửa sổ Hann, làm mượt Gaussian, chuẩn hóa theo thống kê của ảnh đạt chuẩn và giới hạn trong ROI. Ngưỡng được hiệu chuẩn trên 50 ảnh đạt chuẩn khác.',
+        'PatchCore với MobileNetV3-Large (FP16), memory bank xây từ chỉ 10 ảnh đạt chuẩn.',
+        'Mỗi ảnh 1024 × 1792 được cắt tile, chấm điểm, ghép thành một bản đồ bất thường và so ngưỡng hiệu chuẩn trên 50 ảnh đạt chuẩn khác.',
+        'Đặc trưng lấy ở blocks.4 và blocks.6. Tile 448 px, chồng lấn 0,20; memory bank dùng coreset 0,10.',
+        'Điểm các tile được ghép bằng cửa sổ Hann, làm mượt Gaussian, chuẩn hóa theo thống kê của ảnh đạt chuẩn và giới hạn trong ROI.',
         'Dashboard vận hành bằng aiohttp và React 19 (TypeScript, Vite, shadcn/ui), lịch sử lưu SQLite, nhận ảnh từ camera Basler qua pypylon. Tab Train & Setup cho phép tạo sản phẩm mới, tải ảnh đạt chuẩn, huấn luyện và kích hoạt ngay trên trình duyệt.',
       ],
       results: [
@@ -89,7 +92,7 @@ export const vi: Content = {
       title: 'IntelliDoc OCR: số hóa văn bản hành chính tiếng Việt',
       lede: 'Hệ thống nhận PDF, trích xuất nội dung bằng OCR, để người rà soát sửa và phê duyệt từng trường, rồi lưu bằng chứng để kiểm tra lại về sau.',
       problem:
-        'Văn bản hành chính, bìa hồ sơ và hồ sơ gộp có bố cục khác nhau. OCR sai thì phải có người sửa, và mọi chỉnh sửa đều phải truy vết được.',
+        'Tài liệu có nhiều bố cục khác nhau, và khi OCR sai thì người sửa phải để lại dấu vết truy được.',
       approach: [
         'Giao diện Next.js; FastAPI nhận job; Celery và Redis chạy hàng đợi; Nginx đứng trước; tất cả chạy trong Docker Compose.',
         'Endpoint OCR tương thích OpenAI do máy chủ cấu hình; khóa và URL không bao giờ xuống trình duyệt. Có hộp xác nhận khi endpoint nằm ngoài hệ thống.',
@@ -99,8 +102,14 @@ export const vi: Content = {
         'Ba chế độ xử lý; phân đoạn hồ sơ gộp có bước người xác nhận ranh giới; vẽ crop thủ công làm bằng chứng; nhật ký kiểm toán.',
         'Theo dõi job, chi phí OCR và System Monitor; giao diện VI/EN. Tối đa 15 PDF mỗi job, tổng 200 MiB.',
       ],
+      metrics: [
+        { label: 'Trang đã xử lý', value: '237', note: '66 PDF trong 6 job, lần chạy thử nội bộ 07/2026' },
+        { label: 'Trang lỗi', value: '0', note: 'cùng lần chạy, sau khi tự thử lại' },
+        { label: 'Lượt gọi OCR', value: '137/137', note: 'đều thành công, ghi đủ usage' },
+        { label: 'Trường có bằng chứng', value: '544/660', note: 'trường trích xuất có bbox và ảnh crop làm bằng chứng (82%)' },
+      ],
       status:
-        'Hoàn tất hai milestone ở môi trường cục bộ, đang thử nghiệm nội bộ, chưa phải bản phê duyệt cho khách hàng.',
+        'Hoàn tất hai milestone, đang thử nghiệm nội bộ, chưa phải bản phê duyệt cho khách hàng. Chưa đo độ chính xác từng trường so với ground truth.',
     },
     measure: {
       title: 'Vision Measurement Toolkit: đo khoảng cách và tốc độ từ camera',
@@ -116,12 +125,16 @@ export const vi: Content = {
         'Ba ứng dụng dòng lệnh: đo khoảng cách và chiều cao, đo độ sâu realtime, đo tốc độ theo làn.',
         'Hai repo thử nghiệm riêng (Distance_calculation, Velocity_detection) được tái cấu trúc thành một package có test.',
       ],
+      metrics: [
+        { label: 'Hình học', value: '49 FPS', note: 'MAPE khoảng cách 13,34%; homography + YOLO; Intel Core i7, GTX 1660 Ti' },
+        { label: 'Deep learning', value: '> 230 FPS', note: 'tốc độ hiển thị, MAPE 15,07%; Depth Anything V2 chạy ở worker riêng; cùng máy' },
+      ],
     },
     safety: {
       title: 'Giám sát an toàn lao động bằng pipeline nhiều tầng',
       lede: 'Pipeline sáu tầng phát hiện và theo dõi người, kiểm tra mũ, áo phản quang, khẩu trang, găng tay và các hành vi như dùng điện thoại trên luồng video realtime.',
       problem:
-        'Mỗi kiểm tra cần một góc nhìn khác nhau: mũ và áo nhìn trên toàn khung hình, khẩu trang nhìn ở vùng mặt, găng tay nhìn ở vùng tay. Chạy mọi model trên cả khung hình thì vừa chậm vừa nhiễu.',
+        'Mũ và áo thấy được trên toàn khung hình, nhưng khẩu trang và găng tay cần ảnh cắt vùng mặt, vùng tay; chạy mọi model trên cả khung hình thì vừa chậm vừa nhiễu.',
       approach: [
         'Sáu tầng: phát hiện và theo dõi người → PPE (mũ, áo) → tách vùng (đầu-mặt, tay, thân) → khẩu trang → găng tay → hành vi.',
         'Mỗi người được cắt thành các vùng rồi mới đưa vào model phân loại tương ứng. Kết quả khẩu trang và găng tay lưu theo track_id và làm mới theo chu kỳ để giảm tải.',
@@ -131,6 +144,7 @@ export const vi: Content = {
         'Cùng một mã nguồn chạy ở web realtime, RTSP và CLI batch.',
         'Các model PyTorch được xuất sang ONNX để chạy bằng ONNX Runtime; riêng găng tay chạy TFLite trên CPU.',
       ],
+      status: 'Chưa đánh giá định lượng: chưa đo FPS hay độ chính xác từng tầng trên phần cứng cố định.',
     },
   },
   labs: {
@@ -259,7 +273,7 @@ export const vi: Content = {
   },
   education: {
     title: 'Học vấn',
-    degree: 'Cử nhân Khoa học Ứng dụng, ngành Thị giác máy tính · 10/2021 – 10/2025',
+    degree: 'Cử nhân Khoa học Máy tính, chuyên ngành Thị giác máy tính · 10/2021 – 10/2025',
     school: 'Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM',
     cv: 'Tải CV (PDF)',
     cvOther: 'Bản tiếng Anh',

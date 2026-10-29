@@ -105,3 +105,14 @@ test('theme toggle and language switch', async ({ page }) => {
   // scroll position kept: contact section near the top of the viewport
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(1000);
 });
+
+test('hero links and folded approach details', async ({ page }) => {
+  await page.goto('/en/');
+  const hero = page.locator('#top');
+  await expect(hero.getByRole('link', { name: 'GitHub' })).toHaveAttribute('href', /github\.com\/DoanVietHung03/);
+  await expect(hero.getByRole('link', { name: 'Email' })).toHaveAttribute('href', /^mailto:/);
+  const more = page.locator('#linescan details', { hasText: 'More implementation details' });
+  await expect(more.getByText(/blocks\.4/)).toBeHidden();
+  await more.locator('summary').click();
+  await expect(more.getByText(/blocks\.4/)).toBeVisible();
+});

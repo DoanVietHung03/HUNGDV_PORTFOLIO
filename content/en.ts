@@ -4,11 +4,12 @@ export const en: Content = {
   meta: {
     title: 'Doan Viet Hung · Computer vision engineer',
     description:
-      'Portfolio of Doan Viet Hung: line-scan surface defect inspection, OCR for Vietnamese administrative documents, camera-based distance and speed measurement, and workplace safety monitoring.',
+      'Portfolio of Doan Viet Hung, computer vision engineer: face recognition, license plate recognition, line-scan surface defect inspection, OCR for Vietnamese administrative documents, camera-based measurement and workplace safety monitoring.',
   },
   name: 'Doan Viet Hung',
   role: 'AI / Computer vision engineer',
   nav: {
+    experience: 'Experience',
     projects: 'Projects',
     areas: 'Areas',
     contact: 'Contact',
@@ -41,6 +42,7 @@ export const en: Content = {
   labels: {
     problem: 'Problem',
     approach: 'Approach',
+    moreApproach: 'More implementation details',
     results: 'Results',
     lessons: 'Deployment lessons',
     stack: 'Stack',
@@ -57,11 +59,12 @@ export const en: Content = {
       title: 'Surface defect inspection with a line-scan camera',
       lede: 'The anomaly detector learns only from good samples and needs no defect images. Each image returns OK or NOK, an anomaly map, a mask and boxes around suspect regions.',
       problem:
-        'Surface defects are rare and come in endless forms, so collecting enough defect images to train on is hard. The line needs a decision for every image within about 50 ms.',
+        'Defects are too rare and varied to collect for training, and the line needs a decision for every image within about 50 ms.',
       approach: [
-        'PatchCore on MobileNetV3-Large, with features from blocks.4 and blocks.6, running in FP16.',
-        'Each fixed 1024 × 1792 image is cut into 448 px tiles with 0.20 overlap. Every tile looks up nearest neighbours in a memory bank built from 10 good images (coreset 0.10).',
-        'Tile scores are blended with a Hann window, Gaussian-smoothed, normalized against good-image statistics and restricted to the ROI. The threshold is calibrated on 50 separate good images.',
+        'PatchCore on MobileNetV3-Large (FP16), with a memory bank built from only 10 good images.',
+        'Each 1024 × 1792 image is tiled, scored, merged into one anomaly map and thresholded on 50 separate good images.',
+        'Features come from blocks.4 and blocks.6. Tiles are 448 px with 0.20 overlap; the memory bank uses a 0.10 coreset.',
+        'Tile scores are blended with a Hann window, Gaussian-smoothed, normalized against good-image statistics and restricted to the ROI.',
         'An operations dashboard built with aiohttp and React 19 (TypeScript, Vite, shadcn/ui) keeps history in SQLite and grabs frames from a Basler camera via pypylon. A Train & Setup tab lets operators create a product, upload good images, train and activate it from the browser.',
       ],
       results: [
@@ -89,7 +92,7 @@ export const en: Content = {
       title: 'IntelliDoc OCR: digitizing Vietnamese administrative documents',
       lede: 'The system takes PDFs, extracts content with OCR, lets a reviewer correct and approve each field, and keeps evidence so results can be audited later.',
       problem:
-        'Administrative documents, file covers and merged dossiers all have different layouts. When OCR is wrong a person has to fix it, and every edit must be traceable.',
+        'Documents come in many layouts, and when OCR is wrong a person must fix it in a way that stays traceable.',
       approach: [
         'Next.js front end; FastAPI accepts jobs; Celery and Redis run the queue; Nginx sits in front; everything runs in Docker Compose.',
         'The OCR endpoint is OpenAI-compatible and configured on the server; keys and URLs never reach the browser. External endpoints require an explicit confirmation.',
@@ -99,8 +102,14 @@ export const en: Content = {
         'Three processing modes; merged-dossier splitting with a human-confirmed boundary step; manual crops as evidence; an audit log.',
         'Job tracking, OCR cost tracking and a System Monitor; VI/EN interface. Up to 15 PDFs per job, 200 MiB in total.',
       ],
+      metrics: [
+        { label: 'Pages processed', value: '237', note: '66 PDFs in 6 jobs, internal test run, Jul 2026' },
+        { label: 'Failed pages', value: '0', note: 'same run, after automatic retries' },
+        { label: 'OCR calls', value: '137/137', note: 'all succeeded with complete usage records' },
+        { label: 'Fields with evidence', value: '544/660', note: 'extracted fields with a bounding box and evidence crop (82%)' },
+      ],
       status:
-        'Two milestones complete in a local environment; currently in internal testing, not a customer-approved release.',
+        'Two milestones complete; in internal testing, not a customer-approved release. Field accuracy against ground truth has not been measured yet.',
     },
     measure: {
       title: 'Vision Measurement Toolkit: distance and speed from a camera',
@@ -116,12 +125,16 @@ export const en: Content = {
         'Three command-line apps: distance and height, realtime depth distance, and lane speed.',
         'Two earlier experiment repos (Distance_calculation, Velocity_detection) were refactored into one tested package.',
       ],
+      metrics: [
+        { label: 'Geometric', value: '49 FPS', note: '13.34% MAPE on distance; homography + YOLO; Intel Core i7, GTX 1660 Ti' },
+        { label: 'Deep learning', value: '> 230 FPS', note: 'display rate, 15.07% MAPE; Depth Anything V2 in its own worker; same machine' },
+      ],
     },
     safety: {
       title: 'Workplace safety monitoring with a multi-stage pipeline',
       lede: 'A six-stage pipeline detects and tracks people, then checks helmets, vests, face masks, gloves and behaviours such as phone use on a realtime video stream.',
       problem:
-        'Each check needs a different view: helmets and vests are visible in the full frame, masks need the face region, gloves need the hands. Running every model on the full frame is slow and noisy.',
+        'Helmets and vests show in the full frame, but masks and gloves need face and hand crops; running every model on the full frame is slow and noisy.',
       approach: [
         'Six stages: person detection and tracking → PPE (helmet, vest) → region split (head-face, hands, torso) → mask → gloves → behaviour.',
         'Each person is cropped into regions before the matching classifier sees it. Mask and glove results are cached per track_id and refreshed periodically to save compute.',
@@ -131,6 +144,7 @@ export const en: Content = {
         'The same code runs as a realtime web app, on RTSP streams and as a batch CLI.',
         'PyTorch models are exported to ONNX and run with ONNX Runtime; the glove model runs as TFLite on CPU.',
       ],
+      status: 'Not yet evaluated quantitatively: no FPS or per-stage accuracy has been measured on fixed hardware.',
     },
   },
   labs: {
@@ -259,7 +273,7 @@ export const en: Content = {
   },
   education: {
     title: 'Education',
-    degree: 'Bachelor of Applied Science, Computer Vision · Oct 2021 – Oct 2025',
+    degree: 'BS in Computer Science, major in Computer Vision · Oct 2021 – Oct 2025',
     school: 'University of Science, Vietnam National University Ho Chi Minh City',
     cv: 'Download CV (PDF)',
     cvOther: 'Vietnamese version',
