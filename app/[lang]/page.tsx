@@ -5,7 +5,6 @@ import { GithubIcon, LinkedinIcon } from '@/components/BrandIcons';
 import { getContent, isLang, type Lang } from '@/lib/i18n';
 import { site } from '@/content/site';
 import { projects } from '@/content/projects';
-import { ScopeCanvas } from '@/components/hero/ScopeCanvas';
 import { HeaderControls } from '@/components/HeaderControls';
 import { Ruler } from '@/components/Ruler';
 import { ProjectSection } from '@/components/ProjectSection';
@@ -83,7 +82,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                 <a
                   href={`/cv/${cvMain}`}
                   download
-                  className="inline-flex items-center gap-2 rounded-[4px] bg-accent px-4 py-2.5 text-sm font-medium text-white dark:text-[#0c141c]"
+                  className="inline-flex items-center gap-2 rounded-[4px] border border-accent bg-surface px-4 py-2.5 text-sm font-medium text-accent hover:bg-accent/10"
                 >
                   <Download size={16} aria-hidden />
                   {c.education.cv}
@@ -104,7 +103,6 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               </li>
             )}
           </ul>
-          <ScopeCanvas t={c.hero} lang={lang} />
         </section>
 
         {/* ---- experience ---- */}
@@ -231,7 +229,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                   <a
                     href={`/cv/${cvMain}`}
                     download
-                    className="inline-flex items-center gap-2 rounded-[4px] bg-accent px-4 py-2 text-sm font-medium text-white dark:text-[#0c141c]"
+                    className="inline-flex items-center gap-2 rounded-[4px] border border-accent bg-surface px-4 py-2.5 text-sm font-medium text-accent hover:bg-accent/10"
                   >
                     <Download size={16} aria-hidden />
                     {c.education.cv}

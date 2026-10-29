@@ -22,21 +22,6 @@ export const vi: Content = {
   hero: {
     title: 'Mình xây hệ thống thị giác máy tính chạy được ngoài đời thật.',
     sub: 'Kỹ sư thị giác máy tính tại Việt Nam. Phát hiện lỗi công nghiệp, nhận dạng khuôn mặt và biển số, đọc tài liệu, đo đạc bằng camera.',
-    line: 'DÒNG',
-    thr: 'THR',
-    threshold: 'Ngưỡng',
-    flagged: 'Đã đánh dấu',
-    caught: 'Lỗi thật',
-    falseAlarms: 'Báo nhầm',
-    rescan: 'Quét lại',
-    realTag: 'lỗi thật',
-    falseTag: 'báo nhầm',
-    missedTag: 'bỏ sót',
-    hint: 'Kéo ngưỡng: thấp thì bắt hết lỗi nhưng báo nhầm nhiều, cao thì ngược lại. Dự án kiểm tra lỗi nào cũng phải cân bằng điều này.',
-    caption: 'Bề mặt tổng hợp, sinh ngẫu nhiên trong trình duyệt, không phải dữ liệu thật.',
-    canvasLabel:
-      'Mô phỏng camera line-scan quét qua một bề mặt kim loại tổng hợp, tô bản đồ nhiệt lên các vùng bất thường và đóng khung những vùng có điểm vượt ngưỡng.',
-    live: 'Ngưỡng {thr}: đánh dấu {flagged} vùng, bắt được {caught} trên {total} lỗi thật, {fa} báo nhầm.',
   },
   projectsTitle: 'Dự án',
   labels: {

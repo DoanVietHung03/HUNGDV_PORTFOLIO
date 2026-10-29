@@ -25,20 +25,6 @@ export interface ProjectText {
 export interface HeroText {
   title: string;
   sub: string;
-  line: string;
-  thr: string;
-  threshold: string;
-  flagged: string;
-  caught: string;
-  falseAlarms: string;
-  rescan: string;
-  realTag: string;
-  falseTag: string;
-  missedTag: string;
-  hint: string;
-  caption: string;
-  canvasLabel: string;
-  live: string;
 }
 
 export interface TileLabText {

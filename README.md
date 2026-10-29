@@ -2,7 +2,7 @@
 
 Bilingual (VI/EN) portfolio of Doan Viet Hung, computer vision engineer. Live at **https://hungdv.io.vn**.
 
-Each project has a small interactive model that runs on synthetic data in the browser: defect threshold, tiling, OCR job flow, camera-to-ground measurement and a multi-stage safety pipeline.
+Each project has a small interactive model that runs on synthetic data in the browser: line-scan tiling, OCR job flow, camera-to-ground measurement and a multi-stage safety pipeline.
 
 ![Homepage](docs/screenshot.png)
 

@@ -31,22 +31,6 @@ test('root redirects by Accept-Language', async ({ browser }) => {
   await ctx.close();
 });
 
-test('hero threshold changes the counts', async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/en/');
-  const flagged = page.locator('text=Flagged').locator('..').locator('.mono');
-  const slider = page.locator('#thr');
-  await slider.fill('0.05');
-  await expect(flagged).toHaveText('9');
-  await expect(page.getByText(/Real defects/).locator('..').locator('.mono')).toHaveText('5/5');
-  await slider.fill('0.95');
-  await expect(flagged).toHaveText('0');
-  // keyboard works on the real range input
-  await slider.focus();
-  await page.keyboard.press('ArrowLeft');
-  await expect(slider).toHaveValue('0.94');
-});
-
 test('tile lab: 0.20 overlap gives 15 tiles, 0.50 gives 28', async ({ page }) => {
   await page.goto('/en/');
   await page.locator('#linescan').scrollIntoViewIfNeeded();

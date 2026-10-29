@@ -22,21 +22,6 @@ export const en: Content = {
   hero: {
     title: 'I build computer vision systems that work outside the lab.',
     sub: 'Computer vision engineer based in Vietnam. Industrial defect detection, face and license plate recognition, document OCR, and camera-based measurement.',
-    line: 'LINE',
-    thr: 'THR',
-    threshold: 'Threshold',
-    flagged: 'Flagged',
-    caught: 'Real defects',
-    falseAlarms: 'False alarms',
-    rescan: 'Scan again',
-    realTag: 'defect',
-    falseTag: 'false alarm',
-    missedTag: 'missed',
-    hint: 'Drag the threshold: low catches every defect but raises false alarms, high does the opposite. Every inspection project has to balance this.',
-    caption: 'Synthetic surface, generated randomly in your browser. Not real data.',
-    canvasLabel:
-      'A simulated line-scan camera sweeps across a synthetic metal surface, paints a heat map over anomalous regions and boxes those whose score passes the threshold.',
-    live: 'Threshold {thr}: {flagged} flagged, {caught} of {total} real defects caught, {fa} false alarms.',
   },
   projectsTitle: 'Projects',
   labels: {
