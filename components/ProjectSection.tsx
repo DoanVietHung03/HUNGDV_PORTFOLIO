@@ -1,4 +1,4 @@
-import { ExternalLink, Lock } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, Lock } from 'lucide-react';
 import type { Content, ProjectText } from '@/content/types';
 import type { ProjectMeta } from '@/content/projects';
 
@@ -8,12 +8,15 @@ export function ProjectSection({
   labels,
   showMetrics,
   lab,
+  note,
 }: {
   meta: ProjectMeta;
   text: ProjectText;
   labels: Content['labels'];
   showMetrics: boolean;
   lab: React.ReactNode;
+  /** Long write-up of this project's evaluation, linked under the method block. */
+  note?: { href: string; label: string; title: string };
 }) {
   return (
     <article id={meta.anchor} data-anchor aria-labelledby={`${meta.anchor}-title`} className="pt-14 pb-6">
@@ -106,6 +109,15 @@ export function ProjectSection({
               </div>
             </details>
           )}
+          {note && (
+            <a href={note.href} className="group block rounded-[4px] border border-accent p-4 hover:bg-accent/10">
+              <span className="text-sm text-accent inline-flex items-center gap-1">
+                {note.label}
+                <ArrowUpRight size={14} aria-hidden className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </span>
+              <span className="mt-1 block font-display font-semibold tracking-tight">{note.title}</span>
+            </a>
+          )}
           <div>
             <h4 className="sr-only">{labels.stack}</h4>
             <ul className="flex flex-wrap gap-1.5" aria-label={labels.stack}>
@@ -121,6 +133,31 @@ export function ProjectSection({
           <div className="min-[960px]:sticky min-[960px]:top-20">{lab}</div>
         </div>
       </div>
+      {text.demos && (
+        <div className="mt-10 grid gap-8 lg:grid-cols-2">
+          {text.demos.map((d) => (
+            <figure key={d.title} className={d.stills ? 'lg:col-span-2' : ''}>
+              <h4 className="font-display text-lg font-semibold tracking-tight">{d.title}</h4>
+              {d.video && (
+                // Clips have no audio track, so captions are not needed; preload none keeps the page light.
+                <video src={d.video} poster={d.poster} controls muted loop playsInline preload="none" className="mt-3 w-full rounded-[4px] border border-line bg-black aspect-video" />
+              )}
+              {d.stills && (
+                <ul className="mt-3 grid gap-3 sm:grid-cols-3">
+                  {d.stills.map((s) => (
+                    <li key={s.src}>
+                      {/* eslint-disable-next-line @next/next/no-img-element -- static export */}
+                      <img src={s.src} alt={s.label} width={640} height={360} loading="lazy" className="w-full h-auto rounded-[4px] border border-line" />
+                      <span className="mono mt-1 block text-xs text-ink-2">{s.label}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <figcaption className="mt-2 text-sm text-ink-2">{d.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      )}
     </article>
   );
 }

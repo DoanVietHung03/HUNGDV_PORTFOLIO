@@ -35,8 +35,11 @@ export function restoreAnchor() {
 export function HeaderControls({
   lang,
   labels,
+  path = '',
 }: {
   lang: Lang;
+  /** Sub-path after /{lang}/ so the language switch stays on the same page. */
+  path?: string;
   labels: { toLight: string; toDark: string; otherLang: string };
 }) {
   const [theme, setTheme] = useState<'light' | 'dark' | null>(null);
@@ -67,7 +70,7 @@ export function HeaderControls({
           ) : (
             <a
               key={l}
-              href={`/${l}/`}
+              href={`/${l}/${path}`}
               hrefLang={l}
               lang={l}
               onClick={saveAnchor}

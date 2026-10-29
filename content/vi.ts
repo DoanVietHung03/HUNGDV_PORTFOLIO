@@ -12,6 +12,7 @@ export const vi: Content = {
     experience: 'Kinh nghiệm',
     projects: 'Dự án',
     areas: 'Lĩnh vực',
+    contact: 'Liên hệ',
     skip: 'Bỏ qua, đến nội dung chính',
     toLight: 'Chuyển sang nền sáng',
     toDark: 'Chuyển sang nền tối',
@@ -100,7 +101,7 @@ export const vi: Content = {
     },
     measure: {
       title: 'Vision Measurement Toolkit: đo khoảng cách và tốc độ từ camera',
-      glance: { name: 'Vision Measurement Toolkit', stat: '49 FPS · MAPE 13,3%', line: 'Đo khoảng cách và tốc độ xe từ một camera. Mã nguồn mở.' },
+      glance: { name: 'Vision Measurement Toolkit', stat: '49 FPS · mã nguồn mở', line: 'Đo khoảng cách và tốc độ xe từ một camera, theo thời gian thực.' },
       lede: 'Bộ công cụ gộp hiệu chuẩn camera, đo khoảng cách trên mặt phẳng, đo 3D bằng ước lượng độ sâu từ một camera và đo tốc độ xe theo làn.',
       problem:
         'Muốn ra mét từ ảnh 2D thì phải biết một pixel ứng với bao nhiêu mét, và con số đó thay đổi theo khoảng cách tới camera.',
@@ -120,20 +121,34 @@ export const vi: Content = {
     },
     safety: {
       title: 'Giám sát an toàn lao động bằng pipeline nhiều tầng',
-      glance: { name: 'Giám sát an toàn lao động', stat: 'Pipeline 6 tầng', line: 'Người, mũ, áo, khẩu trang, găng tay và dùng điện thoại trên video trực tiếp.' },
-      lede: 'Pipeline sáu tầng phát hiện và theo dõi người, kiểm tra mũ, áo phản quang, khẩu trang, găng tay và các hành vi như dùng điện thoại trên luồng video realtime.',
+      glance: { name: 'Giám sát an toàn lao động', stat: 'Pipeline 6 tầng', line: 'Người, mũ, áo, khẩu trang, găng tay, dùng điện thoại và vùng cấm trên video trực tiếp.' },
+      lede: 'Pipeline sáu tầng phát hiện và theo dõi người, kiểm tra mũ, áo phản quang, khẩu trang, găng tay và các hành vi như dùng điện thoại trên luồng video realtime. Luật vùng cấm cảnh báo khi có người đi vào khu vực hạn chế.',
       problem:
         'Mũ và áo thấy được trên toàn khung hình, nhưng khẩu trang và găng tay cần ảnh cắt vùng mặt, vùng tay; chạy mọi model trên cả khung hình thì vừa chậm vừa nhiễu.',
       approach: [
         'Sáu tầng: phát hiện và theo dõi người → PPE (mũ, áo) → tách vùng (đầu-mặt, tay, thân) → khẩu trang → găng tay → hành vi.',
         'Mỗi người được cắt thành các vùng rồi mới đưa vào model phân loại tương ứng. Kết quả khẩu trang và găng tay lưu theo track_id và làm mới theo chu kỳ để giảm tải.',
         'Nhánh PPE và nhánh hành vi chạy song song trên khung hình gốc, không phụ thuộc bước tách vùng.',
+        'Vùng cấm là đa giác vẽ trên khung hình camera; người đang được theo dõi bị đánh dấu khi đứng trong vùng đó.',
       ],
       results: [
         'Cùng một mã nguồn chạy ở web realtime, RTSP và CLI batch.',
         'Các model PyTorch được xuất sang ONNX để chạy bằng ONNX Runtime; riêng găng tay chạy TFLite trên CPU.',
       ],
       status: 'Chưa đánh giá định lượng: chưa đo FPS hay độ chính xác từng tầng trên phần cứng cố định.',
+      demos: [
+        { title: 'Mũ và áo phản quang trong nhà xưởng', video: '/demo/ppe.mp4', poster: '/demo/ppe.jpg', caption: 'Kết quả pipeline trên một clip công khai từ YouTube, không phải hiện trường khách hàng.' },
+        { title: 'Vùng cấm', video: '/demo/zone.mp4', poster: '/demo/zone.jpg', caption: 'Camera đường phố từ một clip công khai trên YouTube. Người chuyển sang khung đỏ khi đứng trong vùng màu cam.' },
+        {
+          title: 'Cùng khung hình, ba điều kiện ánh sáng',
+          stills: [
+            { src: '/demo/zone-day.webp', label: 'Gốc' },
+            { src: '/demo/zone-dark.webp', label: 'Làm tối (ban đêm)' },
+            { src: '/demo/zone-ir.webp', label: 'Đen trắng (hồng ngoại)' },
+          ],
+          caption: 'Bản làm tối và bản đen trắng được tạo từ cùng clip để thử độ bền. Cảnh báo vùng cấm vẫn bật ở cả ba, nhưng ID theo dõi khác nhau (30, 43, 29), nên tracking chưa đồng nhất giữa các điều kiện.',
+        },
+      ],
     },
   },
   labs: {
@@ -274,13 +289,19 @@ export const vi: Content = {
       'Chứng chỉ Getting Started with Deep Learning.',
     ],
   },
+  notes: {
+    title: 'Ghi chú',
+    read: 'Bài viết đầy đủ về thí nghiệm few-shot',
+    back: 'Về dự án',
+  },
   contact: {
     title: 'Liên hệ',
+    body: 'Nếu bạn đang tìm người làm thị giác máy tính từ thí nghiệm đến triển khai, hoặc muốn trao đổi về các hướng nghiên cứu ở trên, hãy liên hệ với mình.',
   },
   footer: {
     privacy:
-      'Ba trong bốn dự án là mã nguồn riêng tư; chi tiết đã được rút gọn và không có tên khách hàng, ảnh thật hay cấu hình nội bộ nào trên trang.',
-    synthetic: 'Mọi mô hình tương tác dùng dữ liệu tổng hợp do trình duyệt tự sinh.',
+      'Ba trong bốn dự án là mã nguồn riêng tư; chi tiết đã được rút gọn và không có tên khách hàng, video tại hiện trường khách hàng hay cấu hình nội bộ nào trên trang. Video demo là clip công khai trên YouTube.',
+    synthetic: 'Mọi lab tương tác dùng dữ liệu tổng hợp do trình duyệt tự sinh.',
     source: 'Site tĩnh, không theo dõi người xem.',
   },
 };

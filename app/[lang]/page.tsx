@@ -4,7 +4,8 @@ import { ArrowDown, ArrowUpRight, Download, Mail } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/BrandIcons';
 import { getContent, isLang, type Lang } from '@/lib/i18n';
 import { site } from '@/content/site';
-import { projects } from '@/content/projects';
+import { projects, type ProjectId } from '@/content/projects';
+import { notes } from '@/content/notes';
 import { HeaderControls } from '@/components/HeaderControls';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { ProjectSection } from '@/components/ProjectSection';
@@ -59,8 +60,9 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           </a>
           <nav aria-label="Main" className="hidden sm:flex items-center gap-6 text-sm">
             <a href="#projects" className="text-ink-2 hover:text-ink">{c.nav.projects}</a>
-            <a href="#experience" className="text-ink-2 hover:text-ink">{c.nav.experience}</a>
             <a href="#areas" className="text-ink-2 hover:text-ink">{c.nav.areas}</a>
+            <a href="#experience" className="text-ink-2 hover:text-ink">{c.nav.experience}</a>
+            <a href="#contact" className="text-ink-2 hover:text-ink">{c.nav.contact}</a>
           </nav>
           <HeaderControls lang={lang} labels={{ toLight: c.nav.toLight, toDark: c.nav.toDark, otherLang: c.nav.otherLang }} />
         </div>
@@ -77,7 +79,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             {c.hero.title}
           </h1>
           <p className="mt-5 max-w-[62ch] text-lg text-ink-2">{c.hero.sub}</p>
-          <ul aria-label={c.contact.title} className="mt-6 flex flex-wrap gap-3">
+          <ul aria-label={c.contact.title} className="mt-6 flex flex-wrap items-center gap-3">
             {cvMain && (
               <li>
                 <a
@@ -91,16 +93,16 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               </li>
             )}
             <li>
-              <ContactLink href={site.github} icon={<GithubIcon />} label="GitHub" />
+              <ContactLink href={site.github} icon={<GithubIcon />} label="GitHub" iconOnly />
             </li>
             {site.linkedin && (
               <li>
-                <ContactLink href={site.linkedin} icon={<LinkedinIcon />} label="LinkedIn" />
+                <ContactLink href={site.linkedin} icon={<LinkedinIcon />} label="LinkedIn" iconOnly />
               </li>
             )}
             {site.email && (
               <li>
-                <ContactLink href={`mailto:${site.email}`} icon={<Mail size={16} aria-hidden />} label="Email" />
+                <ContactLink href={`mailto:${site.email}`} icon={<Mail size={16} aria-hidden />} label="Email" iconOnly />
               </li>
             )}
           </ul>
@@ -118,6 +120,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                 return (
                   <li key={p.id}>
                     <a href={`#${p.anchor}`} className="group flex h-full flex-col rounded-[4px] border border-line bg-surface p-5 hover:border-accent">
+                      <CardGlyph id={p.id} />
                       <span className="flex items-start justify-between gap-2 font-display text-lg font-semibold tracking-tight">
                         {g.name}
                         <ArrowDown size={16} aria-hidden className="mt-1 shrink-0 text-ink-2 transition-transform group-hover:translate-y-0.5 group-hover:text-accent" />
@@ -133,35 +136,6 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         </section>
 
         <div className={wrap}>
-        {/* ---- experience ---- */}
-        <section id="experience" data-anchor aria-labelledby="exp-title" className="pt-16 grid gap-6 lg:grid-cols-12">
-          <h2 id="exp-title" className="text-3xl lg:col-span-4">
-            {c.experience.title}
-          </h2>
-          <div className="lg:col-span-8 space-y-8">
-            {c.experience.items.map((e) => (
-              <div key={e.company}>
-                <p className="text-xl font-display font-semibold tracking-tight">{e.company}</p>
-                <ul className="mt-1 space-y-0.5">
-                  {e.roles.map((r) => (
-                    <li key={r.title} className="text-ink-2">
-                      {r.title}
-                      {r.period && <span className="mono text-sm"> · {r.period}</span>}
-                    </li>
-                  ))}
-                </ul>
-                <ul className="mt-3 space-y-2 prose-w">
-                  {e.points.map((pt) => (
-                    <li key={pt} className="pl-4 relative before:absolute before:left-0 before:top-[0.7em] before:h-px before:w-2 before:bg-ink-2">
-                      {pt}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* ---- projects ---- */}
         <section id="project-details" aria-labelledby="projects-title" className="pt-20">
           <h2 id="projects-title" className="text-4xl sm:text-5xl">
@@ -175,6 +149,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               labels={c.labels}
               showMetrics={p.id !== 'linescan' || site.showLineScanMetrics}
               lab={labs[p.id]}
+              note={p.id === 'linescan' ? { href: `/${lang}/notes/${notes[lang][0].slug}/`, label: c.notes.read, title: notes[lang][0].title } : undefined}
             />
           ))}
         </section>
@@ -230,8 +205,37 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           </div>
         </section>
 
+        {/* ---- experience ---- */}
+        <section id="experience" data-anchor aria-labelledby="exp-title" className="mt-20 border-t-[3px] border-ink pt-8 grid gap-6 lg:grid-cols-12">
+          <h2 id="exp-title" className="text-3xl lg:col-span-4">
+            {c.experience.title}
+          </h2>
+          <div className="lg:col-span-8 space-y-8">
+            {c.experience.items.map((e) => (
+              <div key={e.company}>
+                <p className="text-xl font-display font-semibold tracking-tight">{e.company}</p>
+                <ul className="mt-1 space-y-0.5">
+                  {e.roles.map((r) => (
+                    <li key={r.title} className="text-ink-2">
+                      {r.title}
+                      {r.period && <span className="mono text-sm"> · {r.period}</span>}
+                    </li>
+                  ))}
+                </ul>
+                <ul className="mt-3 space-y-2 prose-w">
+                  {e.points.map((pt) => (
+                    <li key={pt} className="pl-4 relative before:absolute before:left-0 before:top-[0.7em] before:h-px before:w-2 before:bg-ink-2">
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ---- education ---- */}
-        <section id="education" data-anchor aria-labelledby="edu-title" className="mt-20 border-t-[3px] border-ink pt-8 pb-20 grid gap-6 lg:grid-cols-12">
+        <section id="education" data-anchor aria-labelledby="edu-title" className="mt-20 border-t-[3px] border-ink pt-8 grid gap-6 lg:grid-cols-12">
           <h2 id="edu-title" className="text-3xl lg:col-span-4">
             {c.education.title}
           </h2>
@@ -275,6 +279,33 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           </div>
         </section>
 
+
+        {/* ---- contact ---- */}
+        <section id="contact" data-anchor aria-labelledby="contact-title" className="mt-20 border-t-[3px] border-ink pt-8 pb-20 grid gap-6 lg:grid-cols-12">
+          <h2 id="contact-title" className="text-3xl lg:col-span-4">
+            {c.contact.title}
+          </h2>
+          <div className="lg:col-span-8">
+            <p className="text-lg prose-w">{c.contact.body}</p>
+            <ul className="mt-6 flex flex-wrap gap-3">
+              <li>
+                <a
+                  href={`mailto:${site.email}`}
+                  className="inline-flex items-center gap-2 rounded-[4px] border border-accent bg-surface px-4 py-2.5 text-sm font-medium text-accent hover:bg-accent/10"
+                >
+                  <Mail size={16} aria-hidden />
+                  {site.email}
+                </a>
+              </li>
+              <li>
+                <ContactLink href={site.linkedin} icon={<LinkedinIcon />} label="LinkedIn" />
+              </li>
+              <li>
+                <ContactLink href={site.github} icon={<GithubIcon />} label="GitHub" />
+              </li>
+            </ul>
+          </div>
+        </section>
         </div>
       </main>
 
@@ -303,14 +334,66 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   );
 }
 
-function ContactLink({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
+function ContactLink({ href, icon, label, iconOnly }: { href: string; icon: React.ReactNode; label: string; iconOnly?: boolean }) {
   return (
     <a
       href={href}
-      className="inline-flex items-center gap-2 rounded-[4px] border border-line bg-surface px-4 py-2.5 text-sm hover:border-accent hover:text-accent"
+      aria-label={iconOnly ? label : undefined}
+      title={iconOnly ? label : undefined}
+      className={`inline-flex items-center gap-2 rounded-[4px] border border-line bg-surface text-sm hover:border-accent hover:text-accent ${iconOnly ? 'size-[42px] justify-center' : 'px-4 py-2.5'}`}
     >
       {icon}
-      {label}
+      {!iconOnly && label}
     </a>
+  );
+}
+
+/** Small line drawing per overview card, echoing each project's lab. */
+function CardGlyph({ id }: { id: ProjectId }) {
+  const shapes = {
+    // overlapping tiles, as in TileLab
+    linescan: (
+      <>
+        <rect x="2" y="4" width="24" height="18" />
+        <rect x="20" y="4" width="24" height="18" />
+        <rect x="38" y="4" width="24" height="18" />
+        <rect x="2" y="18" width="24" height="18" />
+        <rect x="20" y="18" width="24" height="18" />
+        <rect x="38" y="18" width="24" height="18" />
+      </>
+    ),
+    // pipeline steps with a human review stop, as in FlowLab
+    ocr: (
+      <>
+        <rect x="2" y="13" width="12" height="14" />
+        <rect x="26" y="13" width="12" height="14" />
+        <circle cx="56" cy="20" r="6" />
+        <path d="M14 20h12M38 20h12" />
+      </>
+    ),
+    // road trapezoid mapped to a top-down rectangle, as in BevLab
+    measure: (
+      <>
+        <path d="M10 36 20 6h6l10 30Z" />
+        <rect x="46" y="6" width="14" height="30" />
+        <path d="M36 21h8" strokeDasharray="2 2" />
+      </>
+    ),
+    // person box feeding the attribute checks, as in SafetyLab
+    safety: (
+      <>
+        <rect x="2" y="4" width="18" height="32" />
+        <path d="M20 20h8M28 8v24M28 8h6M28 16h6M28 24h6M28 32h6" />
+        <rect x="34" y="5" width="6" height="6" />
+        <rect x="34" y="13" width="6" height="6" />
+        <rect x="34" y="21" width="6" height="6" />
+        <rect x="34" y="29" width="6" height="6" />
+      </>
+    ),
+  };
+  return (
+    <svg viewBox="0 0 64 40" width="64" height="40" aria-hidden className="mb-4 text-accent" fill="none" stroke="currentColor" strokeWidth="1.5">
+      {shapes[id]}
+    </svg>
   );
 }

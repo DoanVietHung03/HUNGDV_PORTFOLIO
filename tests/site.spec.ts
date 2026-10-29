@@ -109,3 +109,25 @@ test('overview cards jump to each project', async ({ page }) => {
   await expect(page).toHaveURL(/#intellidoc-ocr$/);
   await expect(page.locator('#intellidoc-ocr-title')).toBeInViewport();
 });
+
+test('linescan project links to its note, which has no errors, no side scroll and keeps its path across languages', async ({ page }) => {
+  const errors = collectErrors(page);
+  await page.setViewportSize({ width: 390, height: 800 });
+  await page.goto('/en/');
+  await page.locator('#linescan a[href*="/notes/"]').click();
+  await expect(page).toHaveURL(/\/en\/notes\/few-shot\/$/);
+  await expect(page.locator('h1')).toContainText('threshold');
+  await expect(page.locator('table tbody tr')).toHaveCount(10);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.getByRole('navigation', { name: 'Language' }).getByRole('link', { name: 'VI' }).click();
+  await expect(page).toHaveURL(/\/vi\/notes\/few-shot\/$/);
+  expect(errors).toEqual([]);
+});
+
+test('safety demos: videos and stills are served', async ({ page, request }) => {
+  await page.goto('/en/');
+  const section = page.locator('#safety-pipeline');
+  await expect(section.locator('video')).toHaveCount(2);
+  await expect(section.locator('figure img')).toHaveCount(3);
+  for (const src of ['/demo/ppe.mp4', '/demo/zone.mp4', '/demo/zone-ir.webp']) expect((await request.get(src)).ok()).toBe(true);
+});

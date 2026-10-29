@@ -22,6 +22,8 @@ export interface ProjectText {
   lessons?: string[];
   method?: { summary: string; body: string[] };
   status?: string;
+  /** Recorded output on public footage: a video, or a row of stills. */
+  demos?: { title: string; caption: string; video?: string; poster?: string; stills?: { src: string; label: string }[] }[];
 }
 
 export interface HeroText {
@@ -103,6 +105,7 @@ export interface Content {
     experience: string;
     projects: string;
     areas: string;
+    contact: string;
     skip: string;
     toLight: string;
     toDark: string;
@@ -163,6 +166,7 @@ export interface Content {
     achievementsTitle: string;
     achievements: string[];
   };
-  contact: { title: string };
+  notes: { title: string; read: string; back: string };
+  contact: { title: string; body: string };
   footer: { privacy: string; synthetic: string; source: string };
 }

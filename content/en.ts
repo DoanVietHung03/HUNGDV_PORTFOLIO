@@ -12,6 +12,7 @@ export const en: Content = {
     experience: 'Experience',
     projects: 'Projects',
     areas: 'Areas',
+    contact: 'Contact',
     skip: 'Skip to main content',
     toLight: 'Switch to light theme',
     toDark: 'Switch to dark theme',
@@ -100,7 +101,7 @@ export const en: Content = {
     },
     measure: {
       title: 'Vision Measurement Toolkit: distance and speed from a camera',
-      glance: { name: 'Vision Measurement Toolkit', stat: '49 FPS · 13.3% MAPE', line: 'Distance and vehicle speed from a single camera. Open source.' },
+      glance: { name: 'Vision Measurement Toolkit', stat: '49 FPS · open source', line: 'Distance and vehicle speed from a single camera, in real time.' },
       lede: 'A toolkit combining camera calibration, planar distance, 3D measurement from single-camera depth estimation, and lane-based vehicle speed.',
       problem:
         'Getting metres out of a 2D image means knowing how many metres one pixel covers, and that number changes with distance from the camera.',
@@ -120,20 +121,34 @@ export const en: Content = {
     },
     safety: {
       title: 'Workplace safety monitoring with a multi-stage pipeline',
-      glance: { name: 'Workplace safety monitoring', stat: '6-stage pipeline', line: 'People, helmets, vests, masks, gloves and phone use on live video.' },
-      lede: 'A six-stage pipeline detects and tracks people, then checks helmets, vests, face masks, gloves and behaviours such as phone use on a realtime video stream.',
+      glance: { name: 'Workplace safety monitoring', stat: '6-stage pipeline', line: 'People, helmets, vests, masks, gloves, phone use and restricted zones on live video.' },
+      lede: 'A six-stage pipeline detects and tracks people, then checks helmets, vests, face masks, gloves and behaviours such as phone use on a realtime video stream. A zone rule flags anyone who walks into a restricted area.',
       problem:
         'Helmets and vests show in the full frame, but masks and gloves need face and hand crops; running every model on the full frame is slow and noisy.',
       approach: [
         'Six stages: person detection and tracking → PPE (helmet, vest) → region split (head-face, hands, torso) → mask → gloves → behaviour.',
         'Each person is cropped into regions before the matching classifier sees it. Mask and glove results are cached per track_id and refreshed periodically to save compute.',
         'The PPE and behaviour branches run in parallel on the original frame and do not depend on the region split.',
+        'Restricted zones are polygons drawn on the camera view; a tracked person is flagged while standing inside one.',
       ],
       results: [
         'The same code runs as a realtime web app, on RTSP streams and as a batch CLI.',
         'PyTorch models are exported to ONNX and run with ONNX Runtime; the glove model runs as TFLite on CPU.',
       ],
       status: 'Not yet evaluated quantitatively: no FPS or per-stage accuracy has been measured on fixed hardware.',
+      demos: [
+        { title: 'Helmets and vests on a factory floor', video: '/demo/ppe.mp4', poster: '/demo/ppe.jpg', caption: 'Pipeline output on a public YouTube clip, not a client site.' },
+        { title: 'Restricted zone', video: '/demo/zone.mp4', poster: '/demo/zone.jpg', caption: 'Street CCTV from a public YouTube clip. A person turns red while inside the orange zone.' },
+        {
+          title: 'Same frame, three lighting conditions',
+          stills: [
+            { src: '/demo/zone-day.webp', label: 'Original' },
+            { src: '/demo/zone-dark.webp', label: 'Darkened (night)' },
+            { src: '/demo/zone-ir.webp', label: 'Greyscale (IR)' },
+          ],
+          caption: 'The darkened and greyscale versions were made from the same clip to test robustness. The zone alert still fires in all three, but the track ID differs (30, 43, 29), so tracking is not identical across conditions.',
+        },
+      ],
     },
   },
   labs: {
@@ -274,13 +289,19 @@ export const en: Content = {
       'Certificate: Getting Started with Deep Learning.',
     ],
   },
+  notes: {
+    title: 'Notes',
+    read: 'Full write-up of the few-shot study',
+    back: 'Back to the project',
+  },
   contact: {
     title: 'Contact',
+    body: 'If you need someone who takes computer vision from experiment to deployment, or want to talk about the research questions above, get in touch.',
   },
   footer: {
     privacy:
-      'Three of the four projects are private; details are condensed, and no client names, real images or internal configuration appear on this site.',
-    synthetic: 'Every interactive model runs on synthetic data generated in your browser.',
+      'Three of the four projects are private; details are condensed, and no client names, client footage or internal configuration appear on this site. Demo videos are public YouTube clips.',
+    synthetic: 'Every interactive lab runs on synthetic data generated in your browser.',
     source: 'Static site, no visitor tracking.',
   },
 };
