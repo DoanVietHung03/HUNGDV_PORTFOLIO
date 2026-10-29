@@ -61,7 +61,6 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             <a href="#projects" className="text-ink-2 hover:text-ink">{c.nav.projects}</a>
             <a href="#experience" className="text-ink-2 hover:text-ink">{c.nav.experience}</a>
             <a href="#areas" className="text-ink-2 hover:text-ink">{c.nav.areas}</a>
-            <a href="#contact" className="text-ink-2 hover:text-ink">{c.nav.contact}</a>
           </nav>
           <HeaderControls lang={lang} labels={{ toLight: c.nav.toLight, toDark: c.nav.toDark, otherLang: c.nav.otherLang }} />
         </div>
@@ -232,7 +231,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         </section>
 
         {/* ---- education ---- */}
-        <section id="education" data-anchor aria-labelledby="edu-title" className="mt-20 border-t-[3px] border-ink pt-8 grid gap-6 lg:grid-cols-12">
+        <section id="education" data-anchor aria-labelledby="edu-title" className="mt-20 border-t-[3px] border-ink pt-8 pb-20 grid gap-6 lg:grid-cols-12">
           <h2 id="edu-title" className="text-3xl lg:col-span-4">
             {c.education.title}
           </h2>
@@ -276,30 +275,6 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           </div>
         </section>
 
-        {/* ---- contact ---- */}
-        <section id="contact" data-anchor aria-labelledby="contact-title" className="mt-20 border-t-[3px] border-ink pt-8 pb-20 grid gap-6 lg:grid-cols-12">
-          <h2 id="contact-title" className="text-3xl lg:col-span-4">
-            {c.contact.title}
-          </h2>
-          <div className="lg:col-span-8">
-            <p className="text-lg prose-w">{c.contact.body}</p>
-            <ul className="mt-6 flex flex-wrap gap-3">
-              <li>
-                <ContactLink href={site.github} icon={<GithubIcon />} label={`${c.contact.github} · ${site.githubHandle}`} />
-              </li>
-              {site.email && (
-                <li>
-                  <ContactLink href={`mailto:${site.email}`} icon={<Mail size={16} aria-hidden />} label={site.email} />
-                </li>
-              )}
-              {site.linkedin && (
-                <li>
-                  <ContactLink href={site.linkedin} icon={<LinkedinIcon />} label={c.contact.linkedin} />
-                </li>
-              )}
-            </ul>
-          </div>
-        </section>
         </div>
       </main>
 
@@ -310,6 +285,12 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             <p>{c.footer.synthetic}</p>
           </div>
           <p className="sm:text-right">
+            <a href={`mailto:${site.email}`} className="hover:text-ink">{site.email}</a>
+            {' · '}
+            <a href={site.github} className="hover:text-ink">GitHub</a>
+            {' · '}
+            <a href={site.linkedin} className="hover:text-ink">LinkedIn</a>
+            <br />
             © {new Date().getFullYear()} {c.name}
             <br />
             {c.footer.source}

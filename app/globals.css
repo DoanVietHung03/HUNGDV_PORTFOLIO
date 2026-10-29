@@ -216,8 +216,8 @@ a { color: inherit; }
   background: var(--bg);
   color: var(--ink);
 }
-/* in dark mode the page is already dark, so lift the band one step */
-:root[data-theme='dark'] .band { --bg: #131e29; --surface: #1a2734; }
+/* in dark mode the page is already dark, so tint the band cobalt to keep it distinct */
+:root[data-theme='dark'] .band { --bg: #172042; --surface: #1e2a52; --line: #33427a; --ink-2: #a9b4d6; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .band { --bg: #131e29; --surface: #1a2734; }
+  :root:not([data-theme]) .band { --bg: #172042; --surface: #1e2a52; --line: #33427a; --ink-2: #a9b4d6; }
 }

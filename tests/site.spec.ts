@@ -82,11 +82,11 @@ test('theme toggle and language switch', async ({ page }) => {
   const before = await html.getAttribute('data-theme');
   await page.getByRole('button', { name: /Switch to (dark|light) theme/ }).click();
   await expect(html).not.toHaveAttribute('data-theme', before ?? '');
-  await page.locator('#contact').scrollIntoViewIfNeeded();
+  await page.locator('#education').scrollIntoViewIfNeeded();
   await page.getByRole('link', { name: 'VI', exact: true }).click();
   await expect(page).toHaveURL(/\/vi\/$/);
   await expect(html).toHaveAttribute('lang', 'vi');
-  // scroll position kept: contact section near the top of the viewport
+  // scroll position kept: education section near the top of the viewport
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(1000);
 });
 

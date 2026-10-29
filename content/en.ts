@@ -12,7 +12,6 @@ export const en: Content = {
     experience: 'Experience',
     projects: 'Projects',
     areas: 'Areas',
-    contact: 'Contact',
     skip: 'Skip to main content',
     toLight: 'Switch to light theme',
     toDark: 'Switch to dark theme',
@@ -238,8 +237,8 @@ export const en: Content = {
       {
         company: 'HPT Vietnam Corporation',
         roles: [
-          { title: 'AI – Computer Vision Solution Engineer', period: 'Dec 2025 – present' },
           { title: 'Intern', period: 'Jul 2025 – Nov 2025' },
+          { title: 'AI – Computer Vision Solution Engineer', period: 'Dec 2025 – present' },
         ],
         points: [
           "Contributed to the company's vision AI platform for security and operations: face recognition, face anti-spoofing, license plate recognition (ALPR) and PPE detection. Co-author on the platform's intellectual property certificate.",
@@ -277,10 +276,6 @@ export const en: Content = {
   },
   contact: {
     title: 'Contact',
-    body: 'If you need someone who takes computer vision from experiment to deployment, or want to talk about the research questions above, get in touch.',
-    github: 'https://github.com/DoanVietHung03',
-    email: 'hungdoan29102003@gmail.com',
-    linkedin: 'https://www.linkedin.com/in/h%C6%B0ng-%C4%91o%C3%A0n-a636502ba/',
   },
   footer: {
     privacy:

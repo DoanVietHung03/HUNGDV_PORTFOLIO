@@ -12,7 +12,6 @@ export const vi: Content = {
     experience: 'Kinh nghiệm',
     projects: 'Dự án',
     areas: 'Lĩnh vực',
-    contact: 'Liên hệ',
     skip: 'Bỏ qua, đến nội dung chính',
     toLight: 'Chuyển sang nền sáng',
     toDark: 'Chuyển sang nền tối',
@@ -238,8 +237,8 @@ export const vi: Content = {
       {
         company: 'HPT Vietnam Corporation',
         roles: [
-          { title: 'AI – Computer Vision Solution Engineer', period: '12/2025 – nay' },
           { title: 'Thực tập sinh', period: '07/2025 – 11/2025' },
+          { title: 'AI – Computer Vision Solution Engineer', period: '12/2025 – nay' },
         ],
         points: [
           'Đóng góp vào nền tảng thị giác AI cho an ninh và vận hành của công ty: nhận diện khuôn mặt, chống giả mạo khuôn mặt, nhận dạng biển số (ALPR) và nhận diện đồ bảo hộ lao động (PPE). Đồng tác giả trong chứng nhận sở hữu trí tuệ của nền tảng này.',
@@ -277,10 +276,6 @@ export const vi: Content = {
   },
   contact: {
     title: 'Liên hệ',
-    body: 'Nếu bạn đang tìm người làm thị giác máy tính từ thí nghiệm đến triển khai, hoặc muốn trao đổi về các hướng nghiên cứu ở trên, hãy liên hệ với mình.',
-    github: 'https://github.com/DoanVietHung03',
-    email: 'hungdoan29102003@gmail.com',
-    linkedin: 'https://www.linkedin.com/in/h%C6%B0ng-%C4%91o%C3%A0n-a636502ba/',
   },
   footer: {
     privacy:

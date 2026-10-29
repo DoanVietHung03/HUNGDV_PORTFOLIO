@@ -103,7 +103,6 @@ export interface Content {
     experience: string;
     projects: string;
     areas: string;
-    contact: string;
     skip: string;
     toLight: string;
     toDark: string;
@@ -164,6 +163,6 @@ export interface Content {
     achievementsTitle: string;
     achievements: string[];
   };
-  contact: { title: string; body: string; github: string; email: string; linkedin: string };
+  contact: { title: string };
   footer: { privacy: string; synthetic: string; source: string };
 }
