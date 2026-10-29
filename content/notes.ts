@@ -10,6 +10,8 @@ export interface NoteSection {
   p?: string[];
   list?: string[];
   table?: { caption: string; head: string[]; rows: string[][] };
+  /** Draw the table rows as range boxes against the gate. */
+  chart?: { caption: string; x: string; y: string; gate: string; budget: string };
 }
 
 export interface Note {
@@ -61,6 +63,13 @@ const en: Note = {
     },
     {
       h: 'Results',
+      chart: {
+        caption: 'Each box spans 8 seeds for one variant and one budget (20 boxes, 160 operating points). The green corner is the gate. No box reaches it. Hover a box for its numbers.',
+        x: 'False alarms (out of 107 good images)',
+        y: 'Defects caught (out of 26)',
+        gate: 'Gate: ≥ 25 caught, ≤ 3 false alarms',
+        budget: '{n} good images',
+      },
       table: {
         caption: 'Range across 8 seeds. TP out of 26 defective images, FP out of 107 good images.',
         head: ['Variant', 'TP, 10 good', 'FP, 10 good', 'TP, 15 good', 'FP, 15 good'],
@@ -156,6 +165,13 @@ const vi: Note = {
     },
     {
       h: 'Kết quả',
+      chart: {
+        caption: 'Mỗi hình chữ nhật bao trọn 8 seed của một biến thể ở một ngân sách (20 hình, 160 điểm vận hành). Góc xanh là cổng đạt. Không hình nào chạm tới. Rê chuột lên hình để xem số.',
+        x: 'Báo nhầm (trên 107 ảnh tốt)',
+        y: 'Lỗi bắt được (trên 26)',
+        gate: 'Cổng đạt: bắt ≥ 25, báo nhầm ≤ 3',
+        budget: '{n} ảnh tốt',
+      },
       table: {
         caption: 'Khoảng giá trị qua 8 seed. TP trên 26 ảnh lỗi, FP trên 107 ảnh đạt chuẩn.',
         head: ['Biến thể', 'TP, 10 ảnh', 'FP, 10 ảnh', 'TP, 15 ảnh', 'FP, 15 ảnh'],

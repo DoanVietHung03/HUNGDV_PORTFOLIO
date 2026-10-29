@@ -203,6 +203,21 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               ))}
             </ol>
           </div>
+
+          <div id="notes" data-anchor className="mt-16 grid gap-x-12 gap-y-6 lg:grid-cols-12">
+            <h2 className="text-3xl lg:col-span-4">{c.notes.title}</h2>
+            <ul className="lg:col-span-8 space-y-4">
+              {notes[lang].map((n) => (
+                <li key={n.slug} className="border-t border-line pt-4">
+                  <a href={`/${lang}/notes/${n.slug}/`} className="group block">
+                    <span className="mono text-sm text-ink-2">{n.date}</span>
+                    <span className="mt-1 block text-xl font-display font-semibold tracking-tight group-hover:underline">{n.title}</span>
+                    <span className="mt-1 block text-ink-2">{n.lede}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         {/* ---- experience ---- */}

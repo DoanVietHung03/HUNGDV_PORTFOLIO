@@ -290,7 +290,7 @@ export const vi: Content = {
     ],
   },
   notes: {
-    title: 'Ghi chú',
+    title: 'Ghi chú kỹ thuật',
     read: 'Bài viết đầy đủ về thí nghiệm few-shot',
     back: 'Về dự án',
   },

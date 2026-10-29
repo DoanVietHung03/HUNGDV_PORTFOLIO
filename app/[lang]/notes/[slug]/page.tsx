@@ -5,6 +5,7 @@ import { getContent, isLang, langs, type Lang } from '@/lib/i18n';
 import { notes } from '@/content/notes';
 import { site } from '@/content/site';
 import { HeaderControls } from '@/components/HeaderControls';
+import { GateChart } from '@/components/GateChart';
 
 export const dynamicParams = false;
 export const generateStaticParams = () => langs.flatMap((lang) => notes[lang].map((n) => ({ lang, slug: n.slug })));
@@ -22,7 +23,15 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     title: note.title,
     description: note.lede,
     alternates: { canonical: `/${lang}/${path}`, languages: { vi: `/vi/${path}`, en: `/en/${path}` } },
-    openGraph: { type: 'article', title: note.title, description: note.lede, url: `/${lang}/${path}`, siteName: 'hungdv.io.vn' },
+    openGraph: {
+      type: 'article',
+      title: note.title,
+      description: note.lede,
+      url: `/${lang}/${path}`,
+      siteName: 'hungdv.io.vn',
+      images: [{ url: `/og/${slug}-${lang}.png`, width: 1200, height: 630, alt: note.title }],
+    },
+    twitter: { card: 'summary_large_image', images: [`/og/${slug}-${lang}.png`] },
   };
 }
 
@@ -56,6 +65,16 @@ export default async function NotePage({ params }: Params) {
           {note.sections.map((s) => (
             <section key={s.h} className="mt-12">
               <h2 className="text-2xl sm:text-3xl">{s.h}</h2>
+              {s.chart && s.table && (
+                <figure className="mt-4">
+                  <div className="overflow-x-auto">
+                    <div className="min-w-[560px]">
+                      <GateChart rows={s.table.rows} labels={s.chart} />
+                    </div>
+                  </div>
+                  <figcaption className="mt-2 text-sm text-ink-2">{s.chart.caption}</figcaption>
+                </figure>
+              )}
               {s.table && (
                 <div className="mt-4 overflow-x-auto">
                   <table className="w-full min-w-[560px] text-sm">

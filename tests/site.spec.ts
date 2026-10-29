@@ -114,10 +114,14 @@ test('linescan project links to its note, which has no errors, no side scroll an
   const errors = collectErrors(page);
   await page.setViewportSize({ width: 390, height: 800 });
   await page.goto('/en/');
+  await expect(page.locator('#notes a[href="/en/notes/few-shot/"]')).toBeVisible();
   await page.locator('#linescan a[href*="/notes/"]').click();
   await expect(page).toHaveURL(/\/en\/notes\/few-shot\/$/);
   await expect(page.locator('h1')).toContainText('threshold');
   await expect(page.locator('table tbody tr')).toHaveCount(10);
+  await expect(page.locator('figure svg rect title')).toHaveCount(20);
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /\/og\/few-shot-en\.png$/);
+  expect((await page.request.get('/og/few-shot-en.png')).ok()).toBe(true);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.getByRole('navigation', { name: 'Language' }).getByRole('link', { name: 'VI' }).click();
   await expect(page).toHaveURL(/\/vi\/notes\/few-shot\/$/);

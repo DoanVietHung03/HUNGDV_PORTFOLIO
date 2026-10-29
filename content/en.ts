@@ -290,7 +290,7 @@ export const en: Content = {
     ],
   },
   notes: {
-    title: 'Notes',
+    title: 'Technical notes',
     read: 'Full write-up of the few-shot study',
     back: 'Back to the project',
   },
