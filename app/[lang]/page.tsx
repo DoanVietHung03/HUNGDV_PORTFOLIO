@@ -53,9 +53,8 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
       <header className="sticky top-0 z-40 border-b border-line bg-[color-mix(in_srgb,var(--bg)_88%,transparent)] backdrop-blur">
         <div className="mx-auto flex h-14 max-w-[1180px] items-center justify-between gap-4 px-4 sm:px-6">
           <a href={`/${lang}/`} className="flex items-center gap-2 font-display text-lg font-bold tracking-tight">
-            <span aria-hidden className="relative inline-block size-4 border-2 border-accent">
-              <span className="absolute -top-[4px] left-[7px] h-[calc(100%+8px)] w-[2.5px] bg-defect" />
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element -- static export, tiny SVG */}
+            <img src="/logo-mark.svg" alt="" width={28} height={28} className="size-7 rounded-md dark:ring-1 dark:ring-line" />
             hungdv
           </a>
           <nav aria-label="Main" className="hidden sm:flex items-center gap-6 text-sm">

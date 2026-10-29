@@ -14,7 +14,6 @@ npm run dev            # http://localhost:3000/vi/
 npm run build          # static site in out/
 npm test               # Playwright tests against out/ (build first)
 npm run check:secrets  # scan out/ for IPs, keys, forbidden terms
-npm run og             # regenerate public/og.png
 ./deploy/deploy.sh               # on the VPS itself: build, check, copy out/ to /var/www/hungdv.io.vn
 ```
 

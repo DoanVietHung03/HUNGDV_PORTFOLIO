@@ -7,8 +7,7 @@
     "build": "next build",
     "typecheck": "tsc --noEmit",
     "test": "playwright test",
-    "check:secrets": "node scripts/check-out.mjs",
-    "og": "node scripts/make-og.mjs"
+    "check:secrets": "node scripts/check-out.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.63.0",

@@ -38,7 +38,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       images: [{ url: '/og.png', width: 1200, height: 630, alt: c.meta.title }],
     },
     twitter: { card: 'summary_large_image', images: ['/og.png'] },
-    icons: { icon: '/favicon.svg' },
+    icons: {
+      icon: [
+        { url: '/favicon.ico', sizes: '32x32' },
+        { url: '/icon.svg', type: 'image/svg+xml' },
+      ],
+      apple: '/apple-icon.png',
+    },
   };
 }
 
