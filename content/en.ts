@@ -126,7 +126,7 @@ export const en: Content = {
         'Two earlier experiment repos (Distance_calculation, Velocity_detection) were refactored into one tested package.',
       ],
       metrics: [
-        { label: 'Geometric', value: '49 FPS', note: '13.34% MAPE on distance; homography + YOLO; Intel Core i7, GTX 1660 Ti' },
+        { label: 'Geometric', value: '49 FPS', note: '13.34% MAPE on distance; homography + YOLO; Intel Core i7, GTX 1650 Ti' },
         { label: 'Deep learning', value: '> 230 FPS', note: 'display rate, 15.07% MAPE; Depth Anything V2 in its own worker; same machine' },
       ],
     },

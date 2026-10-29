@@ -126,7 +126,7 @@ export const vi: Content = {
         'Hai repo thử nghiệm riêng (Distance_calculation, Velocity_detection) được tái cấu trúc thành một package có test.',
       ],
       metrics: [
-        { label: 'Hình học', value: '49 FPS', note: 'MAPE khoảng cách 13,34%; homography + YOLO; Intel Core i7, GTX 1660 Ti' },
+        { label: 'Hình học', value: '49 FPS', note: 'MAPE khoảng cách 13,34%; homography + YOLO; Intel Core i7, GTX 1650 Ti' },
         { label: 'Deep learning', value: '> 230 FPS', note: 'tốc độ hiển thị, MAPE 15,07%; Depth Anything V2 chạy ở worker riêng; cùng máy' },
       ],
     },
