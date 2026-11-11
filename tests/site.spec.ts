@@ -42,17 +42,17 @@ test('tile lab: 0.20 overlap gives 15 tiles, 0.50 gives 28', async ({ page }) =>
   await expect(count).toHaveText('12');
 });
 
-test('flow lab: split step only used for merged dossiers', async ({ page }) => {
+test('flow lab: split step only used for multi-document PDFs', async ({ page }) => {
   await page.goto('/en/');
   const lab = page.locator('#intellidoc-ocr');
   await lab.scrollIntoViewIfNeeded();
-  const split = lab.locator('li', { hasText: 'Split dossier' });
+  const split = lab.locator('li', { hasText: 'Split into documents' });
   await expect(split).toHaveAttribute('data-skipped', 'true');
-  await lab.getByRole('radio', { name: 'Merged dossier' }).click();
-  await expect(lab.locator('li', { hasText: 'Split dossier' })).not.toHaveAttribute('data-skipped', 'true');
+  await lab.getByRole('radio', { name: 'Several documents' }).click();
+  await expect(lab.locator('li', { hasText: 'Split into documents' })).not.toHaveAttribute('data-skipped', 'true');
   // arrow keys move between modes
-  await lab.getByRole('radio', { name: 'Merged dossier' }).press('ArrowRight');
-  await expect(lab.getByRole('radio', { name: 'Administrative document' })).toHaveAttribute('aria-checked', 'true');
+  await lab.getByRole('radio', { name: 'Several documents' }).press('ArrowRight');
+  await expect(lab.getByRole('radio', { name: 'Single document' })).toHaveAttribute('aria-checked', 'true');
 });
 
 test('bev lab: per-pixel size grows with distance readout present', async ({ page }) => {

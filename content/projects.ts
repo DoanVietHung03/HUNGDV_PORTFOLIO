@@ -18,7 +18,8 @@ export const projects: ProjectMeta[] = [
   {
     id: 'ocr',
     anchor: 'intellidoc-ocr',
-    stack: ['Next.js', 'FastAPI', 'Celery', 'Redis', 'Nginx', 'Docker Compose'],
+    stack: ['PaddleOCR', 'PP-DocLayout', 'VietOCR', 'PyTorch', 'OpenCV', 'PyMuPDF', 'Python', 'JavaScript'],
+    repo: `${site.github}/OCR_paper`,
   },
   {
     id: 'measure',

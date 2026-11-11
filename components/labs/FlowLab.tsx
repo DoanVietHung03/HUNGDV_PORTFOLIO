@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { UserRound } from 'lucide-react';
 import type { FlowLabText } from '@/content/types';
 
-const SPLIT = 1; // "split dossier" is used only by merged dossiers
-const HUMAN = new Set([1, 3, 4]);
+const SPLIT = 1; // "split into documents" is used only by multi-document PDFs
+const HUMAN = new Set([4, 5]);
 
 export default function FlowLab({ t }: { t: FlowLabText }) {
   const [mode, setMode] = useState(0);
