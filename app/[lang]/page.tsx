@@ -9,6 +9,7 @@ import { notes } from '@/content/notes';
 import { HeaderControls } from '@/components/HeaderControls';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { ProjectSection } from '@/components/ProjectSection';
+import { ScopeCanvas } from '@/components/hero/ScopeCanvas';
 import { BevLab, FlowLab, SafetyLab, TileLab } from '@/components/labs';
 
 const wrap = 'mx-auto max-w-[1180px] px-4 sm:px-6';
@@ -71,41 +72,46 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
 
       <main id="main">
         {/* ---- hero ---- */}
-        <section id="top" data-anchor aria-labelledby="hero-title" className={`${wrap} pt-10 sm:pt-14 pb-14`}>
-          <p className="text-sm text-ink-2">
-            {c.name} · {c.role}
-          </p>
-          <h1 id="hero-title" className="mt-3 max-w-[22ch] text-[2.5rem] sm:text-6xl lg:text-[4.1rem]">
-            {c.hero.title}
-          </h1>
-          <p className="mt-5 max-w-[62ch] text-lg text-ink-2">{c.hero.sub}</p>
-          <ul aria-label={c.contact.title} className="mt-6 flex flex-wrap items-center gap-3">
-            {cvMain && (
+        <section id="top" data-anchor aria-labelledby="hero-title" className={`${wrap} pt-10 sm:pt-14 pb-14 grid gap-10 lg:grid-cols-12 lg:items-center`}>
+          <div className="lg:col-span-5">
+            <p className="text-sm text-ink-2">
+              {c.name} · {c.role}
+            </p>
+            <h1 id="hero-title" className="mt-3 max-w-[22ch] text-[2.5rem] sm:text-6xl lg:text-[3.4rem]">
+              {c.hero.title}
+            </h1>
+            <p className="mt-5 max-w-[62ch] text-lg text-ink-2">{c.hero.sub}</p>
+            <ul aria-label={c.contact.title} className="mt-6 flex flex-wrap items-center gap-3">
+              {cvMain && (
+                <li>
+                  <a
+                    href={`/cv/${cvMain}`}
+                    download
+                    className="inline-flex items-center gap-2 rounded-[4px] border border-accent bg-surface px-4 py-2.5 text-sm font-medium text-accent hover:bg-accent/10"
+                  >
+                    <Download size={16} aria-hidden />
+                    {c.education.cv}
+                  </a>
+                </li>
+              )}
               <li>
-                <a
-                  href={`/cv/${cvMain}`}
-                  download
-                  className="inline-flex items-center gap-2 rounded-[4px] border border-accent bg-surface px-4 py-2.5 text-sm font-medium text-accent hover:bg-accent/10"
-                >
-                  <Download size={16} aria-hidden />
-                  {c.education.cv}
-                </a>
+                <ContactLink href={site.github} icon={<GithubIcon />} label="GitHub" iconOnly />
               </li>
-            )}
-            <li>
-              <ContactLink href={site.github} icon={<GithubIcon />} label="GitHub" iconOnly />
-            </li>
-            {site.linkedin && (
-              <li>
-                <ContactLink href={site.linkedin} icon={<LinkedinIcon />} label="LinkedIn" iconOnly />
-              </li>
-            )}
-            {site.email && (
-              <li>
-                <ContactLink href={`mailto:${site.email}`} icon={<Mail size={16} aria-hidden />} label="Email" iconOnly />
-              </li>
-            )}
-          </ul>
+              {site.linkedin && (
+                <li>
+                  <ContactLink href={site.linkedin} icon={<LinkedinIcon />} label="LinkedIn" iconOnly />
+                </li>
+              )}
+              {site.email && (
+                <li>
+                  <ContactLink href={`mailto:${site.email}`} icon={<Mail size={16} aria-hidden />} label="Email" iconOnly />
+                </li>
+              )}
+            </ul>
+          </div>
+          <div className="lg:col-span-7">
+            <ScopeCanvas t={c.hero.scope} lang={lang} />
+          </div>
         </section>
 
         {/* ---- project overview (dark band) ---- */}

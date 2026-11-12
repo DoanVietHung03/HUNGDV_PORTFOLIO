@@ -135,3 +135,20 @@ test('safety demos: videos and stills are served', async ({ page, request }) => 
   await expect(section.locator('figure img')).toHaveCount(3);
   for (const src of ['/demo/ppe.mp4', '/demo/zone.mp4', '/demo/zone-ir.webp']) expect((await request.get(src)).ok()).toBe(true);
 });
+
+test('hero scope: threshold trades recall against false alarms', async ({ page }) => {
+  await page.goto('/en/');
+  const caught = page.getByTestId('scope-caught');
+  const fa = page.getByTestId('scope-fa');
+  await expect(caught).toHaveText('4/5');
+  await expect(fa).toHaveText('1');
+  await page.locator('#thr').fill('0.4');
+  await expect(caught).toHaveText('5/5');
+  await expect(fa).toHaveText('2');
+  await page.locator('#thr').fill('0.75');
+  await expect(caught).toHaveText('2/5');
+  await expect(fa).toHaveText('0');
+  // Rescan draws a new surface but keeps the same score bands, so the trade-off holds.
+  await page.getByRole('button', { name: 'Rescan' }).click();
+  await expect(caught).toHaveText('2/5');
+});

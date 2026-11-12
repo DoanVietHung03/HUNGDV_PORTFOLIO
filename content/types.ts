@@ -37,6 +37,22 @@ export interface ProjectText {
 export interface HeroText {
   title: string;
   sub: string;
+  scope: ScopeText;
+}
+
+export interface ScopeText {
+  /** Canvas aria-label; {real} and {fake} are candidate counts. */
+  canvasLabel: string;
+  line: string;
+  threshold: string;
+  flagged: string;
+  caught: string;
+  falseAlarms: string;
+  rescan: string;
+  real: string;
+  fake: string;
+  missed: string;
+  note: string;
 }
 
 export interface TileLabText {
