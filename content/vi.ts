@@ -55,10 +55,10 @@ export const vi: Content = {
         'Dashboard vận hành bằng aiohttp và React 19 (TypeScript, Vite, shadcn/ui), lịch sử lưu SQLite, nhận ảnh từ camera Basler qua pypylon. Tab Train & Setup cho phép tạo sản phẩm mới, tải ảnh đạt chuẩn, huấn luyện và kích hoạt ngay trên trình duyệt.',
       ],
       results: [
-        'Kết quả trên tập kiểm thử 133 ảnh (26 lỗi, 107 tốt). README ghi các số độ trễ là kết quả lịch sử.',
+        'Số liệu độ chính xác đo trên bộ dữ liệu công khai RAW-FABRID (cuộn Rollo7A, CC BY 4.0): 133 ảnh kiểm thử, 26 lỗi và 107 tốt. Phần bài học triển khai bên dưới lấy từ lần lắp đặt tại nhà máy. README ghi các số độ trễ là kết quả lịch sử.',
       ],
       metrics: [
-        { label: 'Recall', value: '24/26 (92,3%)', note: '133 ảnh kiểm thử: 26 lỗi, 107 tốt' },
+        { label: 'Recall', value: '24/26 (92,3%)', note: 'Rollo7A, RAW-FABRID: 133 ảnh kiểm thử, 26 lỗi, 107 tốt' },
         { label: 'Báo nhầm', value: '3/107 (2,8%)', note: 'cùng tập kiểm thử' },
         { label: 'Độ trễ P50', value: '43 ms', note: 'RTX A4000, FP16, batch 15, 3.990 frame liên tục; P95 là 44 ms' },
         { label: 'Trên CPU', value: '≈ 683 ms', note: 'OpenVINO FP32, 2 × Xeon Gold 6138' },
@@ -88,8 +88,8 @@ export const vi: Content = {
         'Web app là server Python thư viện chuẩn với JavaScript thuần. Nhiều người rà soát cùng làm qua mạng LAN, mật khẩu băm scrypt, cookie phiên có ký, CSP chặt. Mỗi chỉnh sửa lưu kèm tên người sửa và trở thành một ca kiểm thử hồi quy.',
       ],
       results: [
-        'Độ chính xác theo trường trên bộ scan tăng từ 61,4% lên 92,0% (nhãn nháp) qua khoảng 30 thử nghiệm có ghi chép, mỗi thử nghiệm đều ghi lý do giữ hay bỏ. Ví dụ: đọc lại các vùng bằng VLM làm tăng độ chính xác trung bình theo trường nhưng thêm khoảng 65 s mỗi trang, nên không đưa vào.',
-        'Tốc độ từ 142 s/trang ở mốc CPU đầu tiên xuống 50 s trên CPU và 4,6 s trên GPU, kết quả không đổi. Phần lớn đến từ việc giải mã mọi dòng VietOCR của một trang trong một batch có mask, render PDF ở tiến trình riêng để không chặn mô hình layout, và bỏ qua các trang giữa không có dấu hiệu văn bản mới.',
+        'Độ chính xác theo trường trên bộ scan tăng từ 61,4% lên 92,0% qua khoảng 30 thử nghiệm có ghi chép, chấm trên nhãn nháp; so với nhãn đã được người kiểm sau đó, pipeline cuối đạt 91,2%. Mỗi thử nghiệm đều ghi lý do giữ hay bỏ. Ví dụ: đọc lại các vùng bằng VLM làm tăng độ chính xác trung bình theo trường nhưng thêm khoảng 65 s mỗi trang, nên không đưa vào.',
+        'Tốc độ từ 142 s/trang ở mốc CPU đầu tiên xuống 50 s trên CPU và 4,6 s trên GPU GTX 1650 Ti, kết quả không đổi; lần chạy đó tính trung bình cả bản scan lẫn 86 trang PDF số. Riêng 74 trang scan, pipeline hiện tại mất 5,2 s/trang trên RTX A4000. Phần lớn đến từ việc giải mã mọi dòng VietOCR của một trang trong một batch có mask, render PDF ở tiến trình riêng để không chặn mô hình layout, và bỏ qua các trang giữa không có dấu hiệu văn bản mới.',
         'Một PDF được tự tách thành các văn bản logic, loại văn bản đúng 33/33 trên bộ scan. Khi chạy thử trên web app, 5 job gồm 55 PDF (188 trang) đều xong, không lỗi. Bìa hồ sơ có luật riêng: giá trị viết tay chỉ được sửa theo những gì mẫu bìa in sẵn bảo đảm.',
         '228 unit test. Chạy lại bước trích xuất trên OCR đã lưu mất khoảng một phút, nên mọi thay đổi luật đều được chấm với ground truth trước khi giữ.',
       ],
@@ -97,7 +97,7 @@ export const vi: Content = {
         { label: 'Trường đúng, bản scan', value: '91,2%', note: '331/363 trường, tỉ lệ lỗi ký tự 5,5%; 33 văn bản, 74 trang scan; nhãn đã được người kiểm' },
         { label: 'Trường đúng, PDF số', value: '95,5%', note: '168/176 trường, tỉ lệ lỗi ký tự 3,0%; 16 PDF công khai có dấu và chữ ký, 86 trang; nhãn nháp' },
         { label: 'Văn bản Trung ương', value: '80,0%', note: '132/165 trường; 15 văn bản, 51 trang; nhãn đã kiểm; nhiều luật mới hợp văn bản cấp xã' },
-        { label: 'Tốc độ', value: '5,2 s/trang', note: '74 trang scan, RTX A4000, thêm ~11 s nạp mô hình; 4,6 s/trang trên GTX 1650 Ti 4 GB ở lần chạy trước; mốc CPU đầu tiên 142 s/trang' },
+        { label: 'Tốc độ', value: '5,2 s/trang', note: '74 trang scan, RTX A4000, thêm ~11 s nạp mô hình; 4,6 s/trang trên GTX 1650 Ti 4 GB ở lần chạy trước, gồm cả 86 trang PDF số; mốc CPU đầu tiên 142 s/trang' },
       ],
       method: {
         summary: 'Cách đánh giá',
@@ -125,8 +125,8 @@ export const vi: Content = {
         'Hai repo thử nghiệm riêng (Distance_calculation, Velocity_detection) được tái cấu trúc thành một package có test.',
       ],
       metrics: [
-        { label: 'Hình học', value: '49 FPS', note: 'MAPE khoảng cách 13,34%; homography + YOLO; Intel Core i7, GTX 1650 Ti' },
-        { label: 'Deep learning', value: '> 230 FPS', note: 'tốc độ hiển thị, MAPE 15,07%; Depth Anything V2 chạy ở worker riêng; cùng máy' },
+        { label: 'Hình học', value: '49 FPS', note: 'đo cả vòng xử lý; MAPE 13,34% trên 4 khoảng cách đo thật, 1,4–2,8 m; homography + YOLO; Intel Core i7, GTX 1650 Ti' },
+        { label: 'Deep learning', value: 'MAPE 15,07%', note: 'cùng 4 khoảng cách; Depth Anything V2 chạy ở worker riêng, cứ 2 frame một lần, chưa đo riêng tốc độ; cùng máy' },
       ],
     },
     safety: {
@@ -296,8 +296,8 @@ export const vi: Content = {
     languages: 'Ngôn ngữ: tiếng Việt (bản ngữ), tiếng Anh (làm việc chuyên nghiệp).',
     achievementsTitle: 'Thành tích và chứng chỉ',
     achievements: [
-      'Đồng tác giả, chứng nhận sở hữu trí tuệ cho một nền tảng thị giác AI phục vụ an ninh và vận hành.',
-      'Chứng chỉ Getting Started with Deep Learning.',
+      { text: 'Đồng tác giả, chứng nhận sở hữu trí tuệ cho một nền tảng thị giác AI phục vụ an ninh và vận hành.' },
+      { text: 'Getting Started with Deep Learning, NVIDIA Deep Learning Institute, tháng 10/2025 (xác minh chứng chỉ)', href: 'https://learn.nvidia.com/certificates?id=fkgrVSFiRuueDqI5eZMuDA' },
     ],
   },
   notes: {
@@ -311,7 +311,7 @@ export const vi: Content = {
   },
   footer: {
     privacy:
-      'Ba trong bốn dự án là mã nguồn riêng tư; chi tiết đã được rút gọn và không có tên khách hàng, video tại hiện trường khách hàng hay cấu hình nội bộ nào trên trang. Video demo là clip công khai trên YouTube.',
+      'Hai trong bốn dự án là mã nguồn riêng tư; chi tiết đã được rút gọn và không có tên khách hàng, video tại hiện trường khách hàng hay cấu hình nội bộ nào trên trang. Video demo là clip công khai trên YouTube.',
     synthetic: 'Mọi lab tương tác dùng dữ liệu tổng hợp do trình duyệt tự sinh.',
     source: 'Site tĩnh, không theo dõi người xem.',
   },

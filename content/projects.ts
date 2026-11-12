@@ -19,7 +19,6 @@ export const projects: ProjectMeta[] = [
     id: 'ocr',
     anchor: 'intellidoc-ocr',
     stack: ['PaddleOCR', 'PP-DocLayout', 'VietOCR', 'PyTorch', 'OpenCV', 'PyMuPDF', 'Python', 'JavaScript'],
-    repo: `${site.github}/OCR_paper`,
   },
   {
     id: 'measure',
@@ -31,5 +30,6 @@ export const projects: ProjectMeta[] = [
     id: 'safety',
     anchor: 'safety-pipeline',
     stack: ['PyTorch', 'ONNX Runtime', 'TFLite', 'Tracking', 'RTSP'],
+    repo: `${site.github}/PPE`,
   },
 ];

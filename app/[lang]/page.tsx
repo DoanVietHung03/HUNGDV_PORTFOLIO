@@ -263,8 +263,12 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                 <h3 className="text-lg">{c.education.achievementsTitle}</h3>
                 <ul className="mt-2 space-y-1.5">
                   {c.education.achievements.map((a) => (
-                    <li key={a} className="pl-4 relative before:absolute before:left-0 before:top-[0.7em] before:h-px before:w-2 before:bg-ink-2">
-                      {a}
+                    <li key={a.text} className="pl-4 relative before:absolute before:left-0 before:top-[0.7em] before:h-px before:w-2 before:bg-ink-2">
+                      {a.href ? (
+                        <a href={a.href} className="underline underline-offset-2 hover:text-accent">{a.text}</a>
+                      ) : (
+                        a.text
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -303,18 +307,22 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           <div className="lg:col-span-8">
             <p className="text-lg prose-w">{c.contact.body}</p>
             <ul className="mt-6 flex flex-wrap gap-3">
-              <li>
-                <a
-                  href={`mailto:${site.email}`}
-                  className="inline-flex items-center gap-2 rounded-[4px] border border-accent bg-surface px-4 py-2.5 text-sm font-medium text-accent hover:bg-accent/10"
-                >
-                  <Mail size={16} aria-hidden />
-                  {site.email}
-                </a>
-              </li>
-              <li>
-                <ContactLink href={site.linkedin} icon={<LinkedinIcon />} label="LinkedIn" />
-              </li>
+              {site.email && (
+                <li>
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="inline-flex items-center gap-2 rounded-[4px] border border-accent bg-surface px-4 py-2.5 text-sm font-medium text-accent hover:bg-accent/10"
+                  >
+                    <Mail size={16} aria-hidden />
+                    {site.email}
+                  </a>
+                </li>
+              )}
+              {site.linkedin && (
+                <li>
+                  <ContactLink href={site.linkedin} icon={<LinkedinIcon />} label="LinkedIn" />
+                </li>
+              )}
               <li>
                 <ContactLink href={site.github} icon={<GithubIcon />} label="GitHub" />
               </li>
@@ -331,11 +339,19 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             <p>{c.footer.synthetic}</p>
           </div>
           <p className="sm:text-right">
-            <a href={`mailto:${site.email}`} className="hover:text-ink">{site.email}</a>
-            {' · '}
+            {site.email && (
+              <>
+                <a href={`mailto:${site.email}`} className="hover:text-ink">{site.email}</a>
+                {' · '}
+              </>
+            )}
             <a href={site.github} className="hover:text-ink">GitHub</a>
-            {' · '}
-            <a href={site.linkedin} className="hover:text-ink">LinkedIn</a>
+            {site.linkedin && (
+              <>
+                {' · '}
+                <a href={site.linkedin} className="hover:text-ink">LinkedIn</a>
+              </>
+            )}
             <br />
             © {new Date().getFullYear()} {c.name}
             <br />

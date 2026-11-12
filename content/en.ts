@@ -55,10 +55,10 @@ export const en: Content = {
         'An operations dashboard built with aiohttp and React 19 (TypeScript, Vite, shadcn/ui) keeps history in SQLite and grabs frames from a Basler camera via pypylon. A Train & Setup tab lets operators create a product, upload good images, train and activate it from the browser.',
       ],
       results: [
-        'Results on a 133-image test set (26 defective, 107 good). The README marks the latency figures as historical results.',
+        'Accuracy figures come from the public RAW-FABRID dataset (roll Rollo7A, CC BY 4.0): 133 test images, 26 defective and 107 good. The deployment lessons below come from the factory installation. The README marks the latency figures as historical results.',
       ],
       metrics: [
-        { label: 'Recall', value: '24/26 (92.3%)', note: '133 test images: 26 defective, 107 good' },
+        { label: 'Recall', value: '24/26 (92.3%)', note: 'Rollo7A, RAW-FABRID: 133 test images, 26 defective, 107 good' },
         { label: 'False alarms', value: '3/107 (2.8%)', note: 'same test set' },
         { label: 'P50 latency', value: '43 ms', note: 'RTX A4000, FP16, batch 15, 3,990 consecutive frames; P95 is 44 ms' },
         { label: 'On CPU', value: '≈ 683 ms', note: 'OpenVINO FP32, 2 × Xeon Gold 6138' },
@@ -88,8 +88,8 @@ export const en: Content = {
         'The web app is a standard-library Python server with plain JavaScript. Several reviewers work over the LAN with scrypt-hashed passwords, signed session cookies and a strict CSP. Each correction is saved with the reviewer\'s name and becomes a regression case.',
       ],
       results: [
-        'Field accuracy on the scanned set rose from 61.4% to 92.0% (draft labels) across about 30 logged experiments, each kept or dropped for a stated reason. For example, re-reading regions with a VLM lifted per-field accuracy but added about 65 s per page, so it was left out.',
-        'Speed went from 142 s per page at the first CPU baseline to 50 s on CPU and 4.6 s on GPU, with the same results. The largest gains came from decoding all VietOCR lines of a page in one masked batch, rendering PDFs in a separate process so they stop blocking the layout model, and skipping middle pages that show no new document.',
+        'Field accuracy on the scanned set rose from 61.4% to 92.0% across about 30 logged experiments scored on draft labels; against labels later checked by a person, the final pipeline gets 91.2%. Each experiment was kept or dropped for a stated reason. For example, re-reading regions with a VLM lifted per-field accuracy but added about 65 s per page, so it was left out.',
+        'Speed went from 142 s per page at the first CPU baseline to 50 s on CPU and 4.6 s on a GTX 1650 Ti GPU, with the same results; that run averaged the scans together with 86 pages of digital PDFs. On the 74 scanned pages alone, the current pipeline takes 5.2 s per page on an RTX A4000. The largest gains came from decoding all VietOCR lines of a page in one masked batch, rendering PDFs in a separate process so they stop blocking the layout model, and skipping middle pages that show no new document.',
         'One PDF is split into its logical documents automatically, and the document type is right for 33 of 33 on the scanned set. In a web-app test, 5 jobs with 55 PDFs (188 pages) all finished without errors. File covers have their own rules: handwritten values are repaired only where the printed form allows it.',
         '228 unit tests. Re-running extraction on saved OCR output takes about a minute, so every rule change is scored against ground truth before it is kept.',
       ],
@@ -97,7 +97,7 @@ export const en: Content = {
         { label: 'Fields correct, scans', value: '91.2%', note: '331/363 fields, character error rate 5.5%; 33 documents, 74 scanned pages; labels checked by a person' },
         { label: 'Fields correct, digital PDFs', value: '95.5%', note: '168/176 fields, character error rate 3.0%; 16 public PDFs with stamps and signatures, 86 pages; draft labels' },
         { label: 'Central-government documents', value: '80.0%', note: '132/165 fields; 15 documents, 51 pages; labels checked; many rules still fit commune-level documents only' },
-        { label: 'Speed', value: '5.2 s/page', note: '74 scanned pages, RTX A4000, plus ~11 s to load models; 4.6 s/page on a 4 GB GTX 1650 Ti in an earlier run; 142 s/page at the first CPU baseline' },
+        { label: 'Speed', value: '5.2 s/page', note: '74 scanned pages, RTX A4000, plus ~11 s to load models; 4.6 s/page on a 4 GB GTX 1650 Ti in an earlier run over scans plus 86 digital PDF pages; 142 s/page at the first CPU baseline' },
       ],
       method: {
         summary: 'How it was evaluated',
@@ -125,8 +125,8 @@ export const en: Content = {
         'Two earlier experiment repos (Distance_calculation, Velocity_detection) were refactored into one tested package.',
       ],
       metrics: [
-        { label: 'Geometric', value: '49 FPS', note: '13.34% MAPE on distance; homography + YOLO; Intel Core i7, GTX 1650 Ti' },
-        { label: 'Deep learning', value: '> 230 FPS', note: 'display rate, 15.07% MAPE; Depth Anything V2 in its own worker; same machine' },
+        { label: 'Geometric', value: '49 FPS', note: 'end-to-end loop; 13.34% MAPE on 4 measured distances of 1.4–2.8 m; homography + YOLO; Intel Core i7, GTX 1650 Ti' },
+        { label: 'Deep learning', value: '15.07% MAPE', note: 'same 4 distances; Depth Anything V2 runs in its own worker on every 2nd frame, its rate not measured separately; same machine' },
       ],
     },
     safety: {
@@ -296,8 +296,8 @@ export const en: Content = {
     languages: 'Languages: Vietnamese (native), English (professional working proficiency).',
     achievementsTitle: 'Achievements and certifications',
     achievements: [
-      'Co-author, intellectual property certificate for a vision AI platform for security and operations.',
-      'Certificate: Getting Started with Deep Learning.',
+      { text: 'Co-author, intellectual property certificate for a vision AI platform for security and operations.' },
+      { text: 'Getting Started with Deep Learning, NVIDIA Deep Learning Institute, October 2025 (verify certificate)', href: 'https://learn.nvidia.com/certificates?id=fkgrVSFiRuueDqI5eZMuDA' },
     ],
   },
   notes: {
@@ -311,7 +311,7 @@ export const en: Content = {
   },
   footer: {
     privacy:
-      'Three of the four projects are private; details are condensed, and no client names, client footage or internal configuration appear on this site. Demo videos are public YouTube clips.',
+      'Two of the four projects are private; details are condensed, and no client names, client footage or internal configuration appear on this site. Demo videos are public YouTube clips.',
     synthetic: 'Every interactive lab runs on synthetic data generated in your browser.',
     source: 'Static site, no visitor tracking.',
   },

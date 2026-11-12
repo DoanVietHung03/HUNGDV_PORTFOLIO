@@ -164,7 +164,7 @@ export interface Content {
     cvMissing: string;
     languages: string;
     achievementsTitle: string;
-    achievements: string[];
+    achievements: { text: string; href?: string }[];
   };
   notes: { title: string; read: string; back: string };
   contact: { title: string; body: string };
