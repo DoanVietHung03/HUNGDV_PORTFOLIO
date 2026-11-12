@@ -108,6 +108,13 @@ export const vi: Content = {
       },
       status:
         'Đang thử nghiệm nội bộ, chưa phải bản phê duyệt cho khách hàng. Nhãn của bộ PDF số vẫn là bản nháp, và mới có hai bìa hồ sơ được gán nhãn.',
+      demos: [
+        {
+          title: 'Các vùng layout tìm được trên một trang',
+          stills: [{ src: '/demo/ocr-layout.webp', label: 'Các vùng PP-DocLayout, mỗi vùng ghi lớp và độ tin cậy' }],
+          caption: 'Kết quả pipeline trên trang đầu của một PDF số đã đăng công khai trong tập test, không phải hồ sơ scan của khách hàng. Chữ trong các khung sau đó được VietOCR đọc từng dòng, rồi mới chạy các quy tắc trích trường.',
+        },
+      ],
     },
     measure: {
       title: 'Vision Measurement Toolkit: đo khoảng cách và tốc độ từ camera',

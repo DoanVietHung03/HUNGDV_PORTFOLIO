@@ -108,6 +108,13 @@ export const en: Content = {
       },
       status:
         'Internal testing, not a customer-approved release. The digital-PDF labels are still a draft, and only two file covers are labelled so far.',
+      demos: [
+        {
+          title: 'Layout regions found on a page',
+          stills: [{ src: '/demo/ocr-layout.webp', label: 'PP-DocLayout regions, each tagged with its class and confidence' }],
+          caption: 'Pipeline output on the first page of a publicly posted digital PDF from the test set, not a scanned client record. Text inside the boxes is then read line by line with VietOCR before the field rules run.',
+        },
+      ],
     },
     measure: {
       title: 'Vision Measurement Toolkit: distance and speed from a camera',

@@ -136,14 +136,14 @@ export function ProjectSection({
       {text.demos && (
         <div className="mt-10 grid gap-8 lg:grid-cols-2">
           {text.demos.map((d) => (
-            <figure key={d.title} className={d.stills ? 'lg:col-span-2' : ''}>
+            <figure key={d.title} className={d.stills && d.stills.length > 1 ? 'lg:col-span-2' : ''}>
               <h4 className="font-display text-lg font-semibold tracking-tight">{d.title}</h4>
               {d.video && (
                 // Clips have no audio track, so captions are not needed; preload none keeps the page light.
                 <video src={d.video} poster={d.poster} controls muted loop playsInline preload="none" className="mt-3 w-full rounded-[4px] border border-line bg-black aspect-video" />
               )}
               {d.stills && (
-                <ul className="mt-3 grid gap-3 sm:grid-cols-3">
+                <ul className={`mt-3 grid gap-3 ${d.stills.length > 1 ? 'sm:grid-cols-3' : ''}`}>
                   {d.stills.map((s) => (
                     <li key={s.src}>
                       {/* eslint-disable-next-line @next/next/no-img-element -- static export */}
