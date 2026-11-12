@@ -112,7 +112,15 @@ export const en: Content = {
         {
           title: 'Layout regions found on a page',
           stills: [{ src: '/demo/ocr-layout.webp', label: 'PP-DocLayout regions, each tagged with its class and confidence' }],
-          caption: 'Pipeline output on the first page of a publicly posted digital PDF from the test set, not a scanned client record. Text inside the boxes is then read line by line with VietOCR before the field rules run.',
+          caption: 'Pipeline output on the first page of a publicly posted digital PDF from the test set, not a scanned client record. Text inside the boxes is then read line by line with VietOCR before the field rules run. Alongside: the fields extracted from this page, with confidence; the signer is left out here.',
+          fields: [
+            { label: 'Number', value: '141-KH/ĐU', conf: '0.86' },
+            { label: 'Date', value: '2026-07-17', conf: '0.97' },
+            { label: 'Type', value: 'KẾ HOẠCH', conf: '0.92' },
+            { label: 'Issuer', value: 'ĐẢNG BỘ TỈNH TUYÊN QUANG / ĐẢNG ỦY XÃ ĐỒNG YÊN', conf: '0.88' },
+            { label: 'Summary', value: 'triển khai nhiệm vụ số hóa, tạo lập dữ liệu đảng viên, hồ sơ đảng viên điện tử trên địa bàn xã Đồng Yên', conf: '0.84' },
+            { label: 'Place', value: 'Đồng Yên', conf: '0.75', note: 'sent to review: low confidence' },
+          ],
         },
       ],
     },

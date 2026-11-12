@@ -112,7 +112,15 @@ export const vi: Content = {
         {
           title: 'Các vùng layout tìm được trên một trang',
           stills: [{ src: '/demo/ocr-layout.webp', label: 'Các vùng PP-DocLayout, mỗi vùng ghi lớp và độ tin cậy' }],
-          caption: 'Kết quả pipeline trên trang đầu của một PDF số đã đăng công khai trong tập test, không phải hồ sơ scan của khách hàng. Chữ trong các khung sau đó được VietOCR đọc từng dòng, rồi mới chạy các quy tắc trích trường.',
+          caption: 'Kết quả pipeline trên trang đầu của một PDF số đã đăng công khai trong tập test, không phải hồ sơ scan của khách hàng. Chữ trong các khung sau đó được VietOCR đọc từng dòng, rồi mới chạy các quy tắc trích trường. Kèm theo là các trường trích được từ trang này, kèm độ tin cậy; tên người ký được lược đi.',
+          fields: [
+            { label: 'Số hiệu', value: '141-KH/ĐU', conf: '0,86' },
+            { label: 'Ngày', value: '2026-07-17', conf: '0,97' },
+            { label: 'Loại', value: 'KẾ HOẠCH', conf: '0,92' },
+            { label: 'Cơ quan', value: 'ĐẢNG BỘ TỈNH TUYÊN QUANG / ĐẢNG ỦY XÃ ĐỒNG YÊN', conf: '0,88' },
+            { label: 'Trích yếu', value: 'triển khai nhiệm vụ số hóa, tạo lập dữ liệu đảng viên, hồ sơ đảng viên điện tử trên địa bàn xã Đồng Yên', conf: '0,84' },
+            { label: 'Địa điểm', value: 'Đồng Yên', conf: '0,75', note: 'chuyển duyệt: độ tin cậy thấp' },
+          ],
         },
       ],
     },

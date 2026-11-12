@@ -23,7 +23,15 @@ export interface ProjectText {
   method?: { summary: string; body: string[] };
   status?: string;
   /** Recorded output on public footage: a video, or a row of stills. */
-  demos?: { title: string; caption: string; video?: string; poster?: string; stills?: { src: string; label: string }[] }[];
+  demos?: {
+    title: string;
+    caption: string;
+    video?: string;
+    poster?: string;
+    stills?: { src: string; label: string }[];
+    /** Fields the pipeline extracted from the still, shown beside it. */
+    fields?: { label: string; value: string; conf: string; note?: string }[];
+  }[];
 }
 
 export interface HeroText {

@@ -135,15 +135,18 @@ export function ProjectSection({
       </div>
       {text.demos && (
         <div className="mt-10 grid gap-8 lg:grid-cols-2">
-          {text.demos.map((d) => (
-            <figure key={d.title} className={d.stills && d.stills.length > 1 ? 'lg:col-span-2' : ''}>
-              <h4 className="font-display text-lg font-semibold tracking-tight">{d.title}</h4>
+          {text.demos.map((d) => {
+            // A single still takes the left half; its title and caption sit beside it so the row is not half empty.
+            const side = d.stills?.length === 1;
+            return (
+            <figure key={d.title} className={d.stills ? `lg:col-span-2 ${side ? 'lg:grid lg:grid-cols-2 lg:gap-x-8 lg:content-start' : ''}` : ''}>
+              <h4 className={`font-display text-lg font-semibold tracking-tight ${side ? 'lg:col-start-2 lg:row-start-1' : ''}`}>{d.title}</h4>
               {d.video && (
                 // Clips have no audio track, so captions are not needed; preload none keeps the page light.
                 <video src={d.video} poster={d.poster} controls muted loop playsInline preload="none" className="mt-3 w-full rounded-[4px] border border-line bg-black aspect-video" />
               )}
               {d.stills && (
-                <ul className={`mt-3 grid gap-3 ${d.stills.length > 1 ? 'sm:grid-cols-3' : ''}`}>
+                <ul className={`mt-3 grid gap-3 ${side ? 'lg:col-start-1 lg:row-start-1 lg:row-span-3 lg:mt-0' : 'sm:grid-cols-3'}`}>
                   {d.stills.map((s) => (
                     <li key={s.src}>
                       {/* eslint-disable-next-line @next/next/no-img-element -- static export */}
@@ -153,9 +156,24 @@ export function ProjectSection({
                   ))}
                 </ul>
               )}
-              <figcaption className="mt-2 text-sm text-ink-2">{d.caption}</figcaption>
+              <figcaption className={`mt-2 text-sm text-ink-2 ${side ? 'lg:col-start-2 lg:row-start-2' : ''}`}>{d.caption}</figcaption>
+              {d.fields && (
+                <dl className={`mt-4 divide-y divide-line border-y border-line text-sm ${side ? 'lg:col-start-2 lg:row-start-3' : ''}`}>
+                  {d.fields.map((f) => (
+                    <div key={f.label} className="grid grid-cols-[6rem_1fr_auto] gap-3 py-2">
+                      <dt className="text-ink-2">{f.label}</dt>
+                      <dd>
+                        {f.value}
+                        {f.note && <span className="mt-0.5 block text-xs text-accent">{f.note}</span>}
+                      </dd>
+                      <dd className="mono text-xs text-ink-2">{f.conf}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
             </figure>
-          ))}
+            );
+          })}
         </div>
       )}
     </article>
